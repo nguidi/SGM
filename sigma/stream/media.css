@@ -1,0 +1,7 @@
+		.media-object[class ^="icon-"]
+	,	.media-object[class *=" icon-"]
+	,	.media-object i[class ^="icon-"]
+	,	.media-object i[class *=" icon-"] {
+			width: 1;
+			/*width: auto;*/
+		}
