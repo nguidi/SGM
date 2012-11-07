@@ -1,0 +1,3 @@
+	<% if( attr('actions') && (attr('actions').attr('length') >0) ) { %>
+		<ul <%= (el) -> ActionsControl(el,attr('actions')) %>></ul>
+	<%}%>
