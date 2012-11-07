@@ -1,0 +1,12 @@
+site/docs/*
+.tmp*
+cookbook/*
+docs/*
+scripts/key
+.DS_Store
+html/
+node_modules
+package.json
+*.orig
+.idea
+tmp*
