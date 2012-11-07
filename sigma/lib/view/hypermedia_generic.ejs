@@ -1,0 +1,56 @@
+	<div <%= (el) -> el.model(this) %> class="medias">
+		<div style="border-radius:20px;" class="media well">
+			<div class="media-object pull-left" style="text-align:center;padding:10px;border-radius:10px;line-height:1;background-color:#9D261D;font-size:150px;text-shadow:2px 2px 3px #222;color:white;" class="pull-left media-object" href="#" >
+				<i class="icon-<%= links.self.icon||attr('icon')||'bolt' %>"></i>
+				<h1><%= attr('title')||attr('rel')||attr('name')||links.self.title||links.self.url() %></h1>
+			</div>
+			<div class="media-body">
+				<h2><%= attr('title')||attr('name')||links.self.title||links.self.url() %></h2>
+				<pre class="prettyprint"><%= JSON.stringify(attr(),null,2) %></pre>
+				<h3>Links</h3>
+				<ul class="medias">
+				<% can.each( links.attr()
+				,	function(lnk,key){if(key=='self')return;var link=links[key]; %>
+					<li class="media">
+							<% if(link instanceof can.Observe.List)
+							{%>
+								<div class="media-body">
+									<h4><abbr title="<%= link.href %>"><%= lnk.name||lnk.rel||lnk.href %></abbr></h4>
+										<ul class="medias">
+										<%can.each( link
+										,	function(lnk,key){var lnk=link[key]; %>
+											<li <%= (el) -> el.model(lnk)  %> class="media" data-relation="<%= link.rel %>" data-name="<%= lnk.name||key %>" >
+												<a  class="btn btn-primary pull-right" href="<%= lnk.url?lnk.url():lnk.href %>" <%= (el) -> el.model(lnk)  %> data-relation="<%= link.rel %>" data-name="<%= lnk.name||key %>">
+													<h2 class="media-object"><i class="icon-<%= lnk.icon||'bolt' %>"></i></h2>
+												</a>
+												<div class="media-body">
+													<h4><abbr title="<%= link.href %>"><%= lnk.name||lnk.rel||lnk.href %></abbr></h4>
+													<pre class="prettyprint"><%= JSON.stringify(lnk.attr(),null,2) %></pre>
+												</div>
+											</li>
+											<% }
+										) %>
+										</ul>
+									<pre class="prettyprint"><%= JSON.stringify(link.attr(),null,2) %></pre>
+								</div>
+							<% }else{ %>
+								<div class="media-object pull-right" href="#" >
+									<a class="btn btn-primary" href="<%= link.url?link.url():link.href %>" <%= (el) -> el.model(lnk)  %> data-relation="<%= link.rel %>">
+										<h2><i class="icon-<%= link.icon||'bolt' %>"></i></h2>
+									</a>
+								</div>
+								<div class="media-body">
+									<h4><abbr title="<%= link.href %>"><%= lnk.name||lnk.rel||lnk.href %></abbr></h4>
+									<div class="media-body">
+										<h4><abbr title="<%= link.href %>"><%= link.title||link.rel||link.href %></abbr></h4>
+									</div>
+									<pre class="prettyprint"><%= JSON.stringify(link.attr(),null,2) %></pre>
+								</div>
+							<% } %>
+					</li>
+					<% }
+				) %>
+				</ul>
+			</div>
+		</div>
+	</div>
