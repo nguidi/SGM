@@ -2,6 +2,7 @@ steal(	'sigma/lib'
 ,	'sigma/util'
 ,	'sigma/lib/updatable_control.js'
 ,	'canui/list'
+,	'sigma/lib/view/hypermedia_generic.ejs'
 //,	'http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'
 //,	'http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.js'
 //,	'http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css'
@@ -33,7 +34,7 @@ steal(	'sigma/lib'
 		,	{
 				pluginName:'hc_generic'
 			,	defaults:{
-					view: '//sigma/lib/view/hypermedia_generic.ejs'
+					view: 'sigma/lib/view/hypermedia_generic.ejs'
 				,	list_view: 'hc_generic_list_ejs'
 				}
 			}
