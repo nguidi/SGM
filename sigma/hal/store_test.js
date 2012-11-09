@@ -5,13 +5,12 @@ steal(
 ,	function()
 	{
         module('sigma/hal/store')
-		var assets_path = "../../fixtures/assets/"
 		test("csv2json ajax convert"
 		,	function()
 			{
 				stop();
 			var	store= can.ajax(
-						assets_path+"instituciones_ot.csv"
+						"hal/fixtures/items.csv"
 					)
 					.then(
 						function(items)
@@ -31,7 +30,7 @@ steal(
 			=	Sigma.fixtures
 				.store
 				.get(
-					assets_path+"instituciones_ot.csv"
+					"hal/fixtures/items.csv"
 				).then(
 					function(items)
 					{
@@ -50,8 +49,8 @@ steal(
 			=	Sigma.fixtures
 				.store
 				.union(
-					assets_path+"instituciones_ot.csv"
-				,	assets_path+"instituciones_univ.csv"
+					"hal/fixtures/items.csv"
+				,	"hal/fixtures/mas-items.csv"
 				).then(
 					function(items)
 					{
@@ -73,18 +72,26 @@ steal(
 					Sigma.fixtures
 					.store
 					.get(
-						assets_path+"provincias.csv"
+						"hal/fixtures/provincias.csv"
 					)
-				,	assets_path+"instituciones_univ.csv"
+				,		"hal/fixtures/instituciones-univ.csv"
 				,	function(provincia, institucion)
 					{
 					return	institucion.provincia==provincia.id_provincia
 					}
-				,	function(item)
+				).pipe(
+					function(provincias)
 					{
-						item.instituciones=item.joined
-							delete	item.joined
-						return	item
+					return can
+						.map(
+							provincias
+						,	function(provincia)
+							{
+								provincia.instituciones=provincia.joined
+								delete	provincia.joined
+							return	provincia
+							}
+						)
 					}
 				)
 				.then(
