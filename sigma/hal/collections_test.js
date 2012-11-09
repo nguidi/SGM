@@ -5,28 +5,36 @@ steal(
 	{
 		module("sigma/hal/fixtures")
 		test(
-			"Collections"
+    		"Collections"
 		,	function()
 			{
-				stop()
-			var	collection=Sigma.fixtures
-						.getCollection('/institutions')
-			var	page1=Sigma.fixtures
-				.getPage(
-					collection
-				,	{
-						currentPage:1
-					,	itemsPerPage:2
-					,	collectionUrl:'/institutions'
-					}
-				)
-				ok(page1._links, "links OK");
-				ok(page1._embedded, "embedded OK");
-				ok(page1._links.next, "links.next OK");
-				ok(page1._embedded.collection, "_embedded.items OK");
-				equal(page1._embedded.collection[0]._links.self.href,'/institutions/0', "_embedded href OK");
-				equal(page1._embedded.collection.length,2, "length OK");
-				start()
+			stop()
+			var name="institutions"
+			can.when(
+					Sigma.fixtures.getCollection("/institutions")
+			).then(
+				function(collection)
+				{	
+					collection.items=collection.items.slice(1,6)
+					var	page1=Sigma.fixtures
+							.getPage(
+								collection			
+							,	{
+									currentPage:1
+								,	itemsPerPage:2
+								,	collectionUrl:'/institutions'
+								}
+							)
+					
+					ok(page1._links, "links OK");
+					ok(page1._embedded, "embedded OK");
+					ok(page1._links.next, "links.next OK");
+					ok(page1._embedded.collection, "_embedded.items OK");
+					equal(page1._embedded.collection[0]._links.self.href,'/institutions/0', "_embedded href OK");
+					equal(page1._embedded.collection.length,2, "length OK");
+					start()					
+				}
+			)
 			}
 		)
 		test(

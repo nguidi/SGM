@@ -9,52 +9,58 @@ steal(
 		Sigma.fixtures.collectionsGenerator
 			=	function(original)
 				{
-				var	parsed
-						=parseUri(original.url)
-				,	current_page
-						=parseInt(parsed.queryKey.page)||undefined
-				,	items_per_page
-						=parseInt(parsed.queryKey['items-per-page'])||10
-				,	name
-						=parsed.path.split('/').pop()
-				,	collection=Sigma.fixtures
-							.getCollection('/'+name)
-					//ANTENTI ACA
-					collection.items=collection.items.slice(1,6)
-					//ES para que queden 5 items (3 pages)
-				return	Sigma.fixtures
-					.getPage(
-						collection
-					,	{
-							currentPage:current_page
-						,	itemsPerPage:items_per_page
-						,	collectionUrl:'/'+name
+				return 
+                    Sigma.fixtures.getCollection("/"+name)
+					.pipe(
+						function(collection){
+							var	parsed
+									=parseUri(original.url)
+							,	current_page
+									=parseInt(parsed.queryKey.page)||undefined
+							,	items_per_page
+									=parseInt(parsed.queryKey['items-per-page'])||10
+							,	name
+									=parsed.path.split('/').pop()
+							
+							collection.items=collection.items.slice(1,6)
+							
+							var page=Sigma.fixtures
+								.getPage(
+									collection
+								,	{
+										currentPage:current_page
+									,	itemsPerPage:items_per_page
+									,	collectionUrl:'/'+name
+									}
+								)
+							console.log("page", page)
+							return page
 						}
-					)
-				}
+			        )
+            }
 			can.fixture("GET /institutions" ,	Sigma.fixtures.collectionsGenerator)
 			can.fixture("GET /institutions?page={p}" ,	Sigma.fixtures.collectionsGenerator)
 			can.fixture("GET /institutions?page={p}&items-per-page={ipp}" ,	Sigma.fixtures.collectionsGenerator)
 			can.fixture("GET /institutions?items-per-page={ipp}" ,	Sigma.fixtures.collectionsGenerator)
 		Sigma.fixtures.getCollection
-		=	function(uri)
+    	=	function(uri)
 			{
+				var assets_path = "hal/fixtures/", ext = ".csv"
 				var	data
 						=parseUri(uri)
 					name
 						=data.directory.match(/\/?([^\/]*)/)[1]
-				return	{
-							name:name
-						,	items://Sigma.fixtures.store(name)
-								can.map(
-									['inst1','inst2','inst3','inst4','inst5','inst6','inst7']
-								,	function(item)
-									{
-									return	{ nombre:item }
-									}
-								)
+				return Sigma.fixtures.store.get(assets_path+name+ext)
+					.pipe(
+						function(results)
+						{
+						return	{
+								name:name
+							,	items: results
+							}
 						}
-				}
+					)
+			}
 		Sigma.fixtures.getPage
 		=	function(collection,options)
 			{
