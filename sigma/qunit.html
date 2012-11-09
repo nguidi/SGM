@@ -4,7 +4,7 @@
     </head>
     <body>
 
-    <h1 id="qunit-header">Model Test Suite</h1>
+    <h1 id="qunit-header">SGM/Sigma Model Test Suite</h1>
 	<h2 id="qunit-banner"></h2>
 	<div id="qunit-testrunner-toolbar"></div>
 	<h2 id="qunit-userAgent"></h2>
@@ -13,13 +13,11 @@
     <script type='text/javascript' src='../steal/steal.js'></script>
 	    <script type='text/javascript'>
 steal(	'funcunit/qunit'
-)
-.then(	'sigma/model/hal.js'
-)
-.then(
+).then(
 	'sigma/model/hal_test.js'
 ,	'sigma/hal/hal_builder_test.js'
 ,	'sigma/hal/collections_test.js'
+,	'sigma/hal/store_test.js'
 )
 	    </script>
     </body>

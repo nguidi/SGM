@@ -1,6 +1,8 @@
 steal(
 	'sigma/lib/hal'
-,	function()
+,	'can'
+).then(
+	function()
 	{
 		can.Construct('Sigma.fixtures')
 		can.Construct(
