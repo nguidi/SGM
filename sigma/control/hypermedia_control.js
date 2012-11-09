@@ -1,6 +1,6 @@
 steal(	'sigma/lib'
 ,	'sigma/util'
-,	'sigma/lib/updatable_control.js'
+,	'sigma/control/updatable_control.js'
 ,	'canui/list'
 ,	'sigma/control/view/hypermedia_generic.ejs'
 //,	'http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'
