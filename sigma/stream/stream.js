@@ -1,5 +1,6 @@
 steal(
 	'sigma/media'
+,   'sigma/lib/style.js'
 ,	'sigma/lib'
 ,	'sigma/lib/hypermedia.js'
 ).then(

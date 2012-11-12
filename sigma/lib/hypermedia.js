@@ -2,7 +2,6 @@ steal(
 	'sigma/lib'
 ,	'canui/list'
 ,	'canui/selectable'
-).then( 'sigma/lib/style.js'
 ).then(
 //,	'sigma/lib/do-timeout/jquery.ba-dotimeout.min.js'
 	'sigma/control/updatable_control.js'
