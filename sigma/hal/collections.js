@@ -3,52 +3,53 @@ steal(
 ,	'sigma/lib/uritemplates.js'
 ,	'sigma/lib/hal'
 ,	'sigma/hal/hal_builder.js'
+,	'sigma/hal/store.js'
 ).then(
 	function()
 	{
-		Sigma.fixtures.collectionsGenerator
-			=	function(original)
-				{
-				return 
-                    Sigma.fixtures.getCollection("/"+name)
-					.pipe(
-						function(collection){
-							var	parsed
-									=parseUri(original.url)
-							,	current_page
-									=parseInt(parsed.queryKey.page)||undefined
-							,	items_per_page
-									=parseInt(parsed.queryKey['items-per-page'])||10
-							,	name
-									=parsed.path.split('/').pop()
-							
-							collection.items=collection.items.slice(1,6)
-							
-							var page=Sigma.fixtures
-								.getPage(
-									collection
-								,	{
-										currentPage:current_page
-									,	itemsPerPage:items_per_page
-									,	collectionUrl:'/'+name
-									}
-								)
-							console.log("page", page)
-							return page
+		Sigma.fixtures=Sigma.fixtures||{}
+		Sigma.fixtures.collectionsFixturator
+		=	function(collection_dfd)
+			{
+			return collection_dfd
+				.then(
+					function(collection)
+					{
+					var generator
+					=	function(original)
+						{
+						var	parsed
+							=	parseUri(original.url)
+						,	current_page
+							=	parseInt(parsed.queryKey.page)||undefined
+						,	items_per_page
+							=	parseInt(parsed.queryKey['items-per-page'])||10
+						,	name
+							=	parsed.path.split('/').pop()
+								return	 Sigma.fixtures
+									.getPage(
+										collection
+									,	{
+											currentPage:current_page
+										,	itemsPerPage:items_per_page
+										,	collectionUrl:'/'+name
+										}
+									)
 						}
-			        )
-            }
-			can.fixture("GET /institutions" ,	Sigma.fixtures.collectionsGenerator)
-			can.fixture("GET /institutions?page={p}" ,	Sigma.fixtures.collectionsGenerator)
-			can.fixture("GET /institutions?page={p}&items-per-page={ipp}" ,	Sigma.fixtures.collectionsGenerator)
-			can.fixture("GET /institutions?items-per-page={ipp}" ,	Sigma.fixtures.collectionsGenerator)
+						can.fixture("GET /"+collection.name ,	generator)
+						can.fixture("GET /"+collection.name+"?page={p}" ,	generator)
+						can.fixture("GET /"+collection.name+"?page={p}&items-per-page={ipp}" ,	generator)
+						can.fixture("GET /"+collection.name+"?items-per-page={ipp}" ,	generator)
+					}
+				)
+			}
 		Sigma.fixtures.getCollection
-    	=	function(uri)
+		=	function(uri)
 			{
 				var assets_path = "hal/fixtures/", ext = ".csv"
 				var	data
 						=parseUri(uri)
-					name
+				,	name
 						=data.directory.match(/\/?([^\/]*)/)[1]
 				return Sigma.fixtures.store.get(assets_path+name+ext)
 					.pipe(
