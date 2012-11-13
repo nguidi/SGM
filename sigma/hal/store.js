@@ -3,6 +3,7 @@ steal(
 ).then(
 	function()
 	{
+        Sigma.fixtures=Sigma.fixtures||{}
 	var	line_separator
 	=	'\n'
 	,	field_separator
