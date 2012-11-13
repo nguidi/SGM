@@ -118,8 +118,9 @@ steal(
 				.then(
 					function(pr)
 					{
+						console.log(pr)
 						ok(pr.links, "links OK");
-						equals(pr.constructor.fullName, "Test.HALSample", "links type ok");
+						equals(pr.constructor.fullName, "Test.HALSample", "Resource type ok");
 						//equals(pr.links.constructor.fullName, "Sigma.Model.HAL.Links", "links type ok");
 						ok(pr.embedded, "embedded OK");
 						equals(pr.embedded.attr('collection').constructor.fullName,"Sigma.Model.HAL.Resource.List", "embedded.List type ok");
@@ -190,13 +191,13 @@ steal(
 					{
 						var handler=function(){}
 						pr.bind('embedded',handler)
-						ok(Test.HALSample.store['root'], "object sotre OK");
+						ok(Test.HALSample.store['root'], "object store OK");
 						pr.embedded.single.bind('links',handler)
-						ok(Sigma.Model.HAL.Single.store['1'], "single object sotre OK");
+						ok(Sigma.Model.HAL.Single.store['1'], "single object store OK");
 						var single = pr.links.single.get();
 						ok(single, "object OK");
 						ok(single===pr.embedded.single, "same in the store OK");
-						ok(Sigma.Model.HAL.Single.store['1'], "single object sotre OK");
+						ok(Sigma.Model.HAL.Single.store['1'], "single object store OK");
 
 						var the_single = pr.Linked('single')
 						the_single
@@ -204,7 +205,7 @@ steal(
 							{
 								ok(s, "object OK");
 								ok(s===pr.embedded.single, "same in the store OK");
-								ok(Sigma.Model.HAL.Single.store['1'], "single object sotre OK");
+								ok(Sigma.Model.HAL.Single.store['1'], "single object store OK");
 								s.Fetch()
 								.then(	function(fetched)
 									{

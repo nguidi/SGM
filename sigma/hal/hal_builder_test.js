@@ -27,6 +27,7 @@ steal(
 					}
 				)
 				.get_document()
+				console.log(doc)
 
 				ok(doc._links, "links OK")
 				ok(doc._links.yes, "conditional positive link OK")
