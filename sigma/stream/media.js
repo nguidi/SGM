@@ -8,7 +8,8 @@ steal(
 		can.Construct('Sigma.Media')
 	}
 ).then(
-	'sigma/media/object.js'
+	'sigma/media/actions.js'
+,	'sigma/media/object.js'
 ,	'sigma/media/body.js'
 ).then(
 	'sigma/media/control.js'

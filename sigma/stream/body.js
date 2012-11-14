@@ -1,48 +1,32 @@
-Sigma.Media
-.Body
-=	can
-	.Control(
+Sigma.HypermediaControl(
+	'Sigma.Hypermedia.Body'
+,	{
+		defaults: 
 		{
-			defaults:
-				{
-					title:'3'
-				,	view:'//sigma/stream/views/body.ejs'
-				,	css:
-						{
-						}
-				}
+			title:'3'
+		,	view:'//sigma/stream/views/body.ejs'
 		}
-	,	{
-			init:
-				function(element,options)
-				{
-				/*
-					this.options.data
-					=	this.options.data.isComputed
-							?this.options.data
-							:can.compute(this.options.data)
-				*/
-				var	SC=
-						function(el,subitems)
-						{
-							el.data('subitems',subitems)
-							new	Sigma.Media.Control(el,{data: subitems})
-						}
-				var	$body=
-						element
-						.html(
-							can.view(
-									this.options.view
-								,	this.options.data
-								,	{
-										SubitemsControl : SC	
-									}
-							)
-						)
-						.find('.media-body')
-						//.addClass('pull-'+this.options.align)
-						.css(this.options.css )
-				}
-		}
-	)
+	}
+,	{
+		init: function(element,options)
+		{
+			var SC = function(el,subitems)
+			{
+				el.data('subitems',subitems)
+				new	Sigma.Hypermedia.Stream(el,{slot: subitems})
+			}
 
+			var $body = element
+					.html(
+						can.view(
+								this.options.view
+							,	this.options.data
+							,	{
+									SubitemsControl : SC	
+								}
+						)
+					)
+					.find('.media-body')
+		}
+	}
+)
