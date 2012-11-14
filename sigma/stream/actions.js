@@ -36,7 +36,6 @@ Sigma.HypermediaControl(
 									$('<li>')
 										.append(can.view('//sigma/stream/views/action.ejs',action))
 										.css(self.options.css_list)
-										//.addClass(action.identity())
 								return li
 							}
 						,	list    : actions
