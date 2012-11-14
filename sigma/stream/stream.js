@@ -4,12 +4,12 @@ steal(
 ,	'sigma/lib/hypermedia.js'
 ).then(
 	'sigma/media/stream_fixture.js'
+,	'sigma/media/stream_adapter.js'
 ,	'sigma/hal/hal_builder.js'
 ,	'sigma/media'
-).then(	function()
+).then(	
+	function()
 	{
-
-		$('body').append('<div id="streamContainer"></div>')			
 
 		Sigma.HypermediaContainer(
 			'Sigma.Hypermedia.Stream.Container'
@@ -33,7 +33,7 @@ steal(
 		)
 
 		var stream_container = new Sigma.Hypermedia.Stream.Container(
-			$('#streamContainer')
+			$('#stream')
 		,	{
 				id:'Stream'
 			,	target: 'Stream'
