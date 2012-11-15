@@ -231,6 +231,22 @@ steal(	'sigma/model'
 								)(new can.Observe({}))
 					return	the_model
 					}
+				,	Fetch: function(url, rel)
+					{
+						
+						var self=this
+						return	can.ajax(
+							{
+								url:url
+							}
+						).pipe(
+							function(raw)
+							{
+								raw.rel=rel
+								return	self.model(raw)
+							}
+						)
+					}
 			}
 		,	{
 				getHref:
@@ -250,6 +266,7 @@ steal(	'sigma/model'
 							?can.Deferred().resolve(cached)
 							:link
 								?model.model({_links:{self:{href:link.url()}}}).Fetch()
+								//?model.Fetch("institutions", "lalala")
 								:can.Deferred.reject(
 										'invalid relation: "' + relation + '"'
 								)
@@ -265,7 +282,9 @@ steal(	'sigma/model'
 						).pipe(
 							function(raw)
 							{
-							return	self.constructor.model(raw)
+								//console.log(raw)
+								//aw.rel='root'
+								return	self.constructor.model(raw)
 							}
 						)
 					}
