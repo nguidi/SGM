@@ -5,6 +5,7 @@ steal(
 	'sigma/media/stream_fixture.js'
 ,	'sigma/hal/hal_builder.js'
 ,	'sigma/media'
+,	'sigma/stream/stream_adapter.js'
 ).then(
 	function()
 	{
