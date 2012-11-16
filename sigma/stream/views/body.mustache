@@ -1,0 +1,15 @@
+<div class="media-body media-box">
+	{{#title}}
+		<h4>{{title}}</h4>
+	{{/title}}
+	{{#text}}
+		<p>{{text}}</p>
+	{{/text}}
+	<ul class="medias list">
+		{{#subitems}}
+			<li class="media">
+				{{>views/all}}
+			</li>
+		{{/subitems}}
+	</ul>
+</div>
