@@ -41,11 +41,11 @@
 					{
 						media_types:
 						{
-							'comments':
+							'posts':
 							{
-								Handler: Sigma.Hypermedia.Stream.Mustache
+								Handler: Sigma.Hypermedia.Stream
 							,	options:{
-									target: 'comments'
+									target: 'posts'
 								}
 							}
 						}
@@ -64,7 +64,7 @@
 						.pipe(
 							function(raw)
 							{//solo para el caso de root hay que explicitar el rel (buscar algo mas consistente/elegante)
-								raw.rel='comments'
+								raw.rel='posts'
 							return	raw
 							}
 						)

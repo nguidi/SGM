@@ -1,5 +1,5 @@
 Sigma.HypermediaControl(
-	'Sigma.Hypermedia.Stream.Mustache'
+	'Sigma.Hypermedia.Stream'
 ,	{
 		defaults: {}
 	}
@@ -32,30 +32,134 @@ Sigma.HypermediaControl(
 				](this.$media,this.options.slot)
 		}
 
-	,	_render_medias:	function(element,slot)
+	,	_render_medias:	function(element,slots)
 		{	
-			console.log('_render_medias',element,data)
-			return element.list(
-					{
-						loading:function() { return 'Cargando'; }
-					,	empty: 	function() { return 'Nada!' }
-					,	view: 	function(data)
-							{
-								return 	can.$('<li>')
-										.addClass(data.identity())
-										.addClass('media')
-										.append(
-											can.view('//sigma/stream/views/all.mustache', data)
-										)
-							}
-					,	list:slot
-					}
-				)
+			can.each(
+				slots
+			,	function(media)
+				{
+					new Sigma.Hypermedia.Stream(
+						can.$('<li>')
+							.addClass('media')
+							.addClass(media.identity())
+							.appendTo(element)
+					,	{ 
+							slot: media
+						}
+					)
+				}
+			)
+
+			return element
 		}
 
 	,	_render_media:	function(element,data)
 		{
-			return	element.append(can.view('//sigma/stream/views/all.mustache', data))
+			can.each(
+				[
+					{
+						control: Sigma.Hypermedia.Object
+					,	class:'media-object'
+					}
+				,	{
+						control: Sigma.Hypermedia.Body
+					,	class:'media-body'
+					}
+				,	{
+						control: Sigma.Hypermedia.Actions
+					,	class:'media-actions'
+					}
+				]
+			,	function(media)
+				{
+					new media.control(
+						$('<div>')
+							.addClass(media.class)
+							.appendTo(element)
+					,	{
+							data : data
+						}
+					)
+				}
+			)
+
+			return	element
+		}
+	}
+)
+Sigma.HypermediaControl(
+	'Sigma.Hypermedia.Object'
+,	{
+		defaults: {
+			view : '//sigma/stream/views/object.mustache'
+		}
+	}
+,	{
+		init: function(element,options)
+		{
+			var icon_align = (options.data.attr('icon_align')) ? options.data.attr('icon_align') : 'left'
+
+			element.addClass('pull-'+icon_align)
+
+			can.append(
+				element
+			,	can.view(
+					this.options.view
+				,	this.options.data
+				)
+			)
+		}
+	}
+)
+Sigma.HypermediaControl(
+	'Sigma.Hypermedia.Body'
+,	{
+		defaults: {
+			view : '//sigma/stream/views/body.mustache'
+		}
+	}
+,	{
+		init: function(element,options)
+		{
+			element.addClass('media-box')
+
+			can.append(
+				element
+			,	can.view(
+					this.options.view
+				,	this.options.data
+				)
+			)
+
+			if (options.data.attr('subitems') && options.data.attr('subitems').length > 0 ) {
+				new Sigma.Hypermedia.Stream(
+					element
+				,	{ 
+						slot: options.data.attr('subitems')
+					}
+				)
+			}
+
+		}
+	}
+)
+Sigma.HypermediaControl(
+	'Sigma.Hypermedia.Actions'
+,	{
+		defaults: {
+			view : '//sigma/stream/views/actions.mustache'
+		}
+	}
+,	{
+		init: function(element,options)
+		{
+			can.append(
+				element
+			,	can.view(
+					this.options.view
+				,	this.options.data
+				)
+			)
 		}
 	}
 )
