@@ -64,25 +64,9 @@ steal(
 						{
 							start()
 							equal(data.constructor.fullName,"Sigma.Model.HAL.Resource.Stream","Resource Generated")
-							equal(stream.find('div.media-body h4').length,3,"Comments Length")
-							equal(data.embedded.attr('comments').constructor.fullName,"Sigma.Model.HAL.Resource.List","embedded.List type ok")
-							equals(data.embedded.attr('comments.0').constructor.fullName,"Sigma.Model.HAL.Comments", "embedded type ok");
-							can.each(
-								["TED","NERD","Friky"]
-							, 	function(title) 
-								{
-									ok(
-										can.grep(
-											stream.find('div.media-body h4')
-										,	function(item)
-											{	
-												return can.$(item).text() == title
-											}
-										).length > 0
-									,	"Comment "+title+" Generated"
-									)
-								}
-							)
+							equal(stream.find('div.media-body h4').length,9,"Stream Generated")
+							equals(data.embedded.attr('posts.0').constructor.fullName,"Sigma.Model.HAL.Posts", "embedded type ok");
+							equals(data.embedded.attr('posts.0').embedded.attr('comments.0').constructor.fullName,"Sigma.Model.HAL.Comments", "embedded type ok");
 						}
 					)
 
