@@ -10,6 +10,8 @@ steal.config({
 	,	"sigma/media/": "sigma/stream/"
 	,	"sigma/lib/hal/": "js-hal/"
 	,	'sigma/lib/store2/':'https://raw.github.com/gist/3982154/'
+//	,	'jquery/model/':'can/model/'
+//	,	'mj/':'can/model/'
 	},
 	ext: {
 		js: "js",
