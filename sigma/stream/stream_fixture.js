@@ -58,15 +58,16 @@ steal(
 												,	description: comment.value
 												,	icon_align: (index % 2) ? 'right' : 'left'
 												}	
-											,	'/comments'+'/'+comment.owner
+											,	url+'/comments'+'/'+comment.owner
 											).link(
 												{
-													'actions': genActions('/comments'+'/'+comment.owner)
+													'actions': genActions(url+'/comments'+'/'+comment.owner)
 												}
 											)
 								}
 							)
 						}
+
 						var genPost = function() {
 							return can.map(
 								[
@@ -85,18 +86,18 @@ steal(
 												,	align: 'left'
 												,	icon_align: 'left'
 												}
-											,	'/post/'+post.owner
+											,	'/posts/'+post.owner
 											).link(
 												{
 													'comments': 
 													{ 
 														href:'/comments' 
 													}
-												,	'actions': genActions('/comments'+'/'+post.owner)
+												,	'actions': genActions('/posts/'+post.owner)
 												}
 											).embedded(
 												{
-													'comments': genComments(index)
+													'comments': genComments('/posts/'+post.owner,index)
 												}
 											)
 								}
@@ -119,7 +120,7 @@ steal(
 									{
 										'posts': genPost()
 									}
-								).get_document()					
+								).get_document()
 					}
 				)
 			}
