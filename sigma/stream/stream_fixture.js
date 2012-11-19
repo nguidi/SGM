@@ -1,8 +1,6 @@
 steal(
 	'sigma/hal/hal_builder.js'
-<<<<<<< HEAD
-).then(
-	function ()
+,	function ()
 	{
 		can.fixture(
 			'GET /posts'
