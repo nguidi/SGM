@@ -87,6 +87,7 @@ Sigma.HypermediaControl(
 		}
 	}
 )
+
 Sigma.HypermediaControl(
 	'Sigma.Hypermedia.Object'
 ,	{
@@ -111,6 +112,7 @@ Sigma.HypermediaControl(
 		}
 	}
 )
+
 Sigma.HypermediaControl(
 	'Sigma.Hypermedia.Body'
 ,	{
@@ -143,6 +145,7 @@ Sigma.HypermediaControl(
 		}
 	}
 )
+
 Sigma.HypermediaControl(
 	'Sigma.Hypermedia.Actions'
 ,	{
