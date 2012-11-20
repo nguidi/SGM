@@ -83,7 +83,7 @@ steal(
 				).then(
 					function(collection)
 					{
-						Sigma.Model.HAL.Resource
+						/*Sigma.Model.HAL.Resource
 						(
 							"Sigma.Model.HAL.Collection"
 						,	{
@@ -93,9 +93,10 @@ steal(
 									}
 							}
 						,	{ }
-						)
+						)*/
+						var the_first = Sigma.Model.HAL.Resource("Sigma.Model.HAL.Collection").getRoot('/provincias?items-per-page=2','self');
 						can.Model.List( 'Sigma.Model.HAL.Collection.List');
-						var the_first = Sigma.Model.HAL.Collection.getRoot()
+						//var the_first = Sigma.Model.HAL.Collection.getRoot()
 						the_first.then(
 							function(first)
 							{

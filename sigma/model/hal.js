@@ -193,7 +193,7 @@ steal(	'sigma/model'
 							['links','embedded']
 						,	function(prop)
 							{
-								temp_data['_'+prop]=data['_'+prop]
+								temp_data['_'+prop] = data['_'+prop]
 								delete data['_'+prop]
 							}
 						)
@@ -231,22 +231,28 @@ steal(	'sigma/model'
 								)(new can.Observe({}))
 					return	the_model
 					}
-				,	Fetch: function(url, rel)
-					{
-						
-						var self=this
-						return	can.ajax(
-							{
-								url:url
-							}
-						).pipe(
-							function(raw)
-							{
-								raw.rel=rel
-								return	self.model(raw)
-							}
-						)
-					}
+			,	Fetch: function(url, rel)
+				{
+					
+					var self=this
+					return	can.ajax(
+						{
+							url:url
+						}
+					).pipe(
+						function(raw)
+						{
+							raw.rel=rel
+							return	self.model(raw)
+						}
+					)
+				}
+			,	getRoot: function(url,rel)
+				{
+					var hal = {_links:{}}
+					hal._links[rel] = {href: url}
+					return this.model(hal).Fetch()
+				}
 			}
 		,	{
 				getHref:
