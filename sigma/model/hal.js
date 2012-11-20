@@ -249,6 +249,7 @@ steal(	'sigma/model'
 				}
 			,	getRoot: function(url,rel)
 				{
+					rel = (rel==undefined)?'self':rel
 					var hal = {_links:{}}
 					hal._links[rel] = {href: url}
 					return this.model(hal).Fetch()
