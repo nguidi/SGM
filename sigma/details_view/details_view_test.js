@@ -2,8 +2,10 @@ steal(
 	'sigma/lib'
 ,	'sigma/lib/hypermedia.js'
 ).then(
-	'sigma/details/details_fixture.js'
-,	'sigma/details/details.js'
+	'sigma/details_view/details_view_fixture.js'
+,	'sigma/details_view/details.js'
+,	'sigma/details_view/drilldown.js'
+,	'sigma/details_view/comments.js'
 ).then(
 	function()
 	{	
@@ -26,7 +28,7 @@ steal(
 				var details = can.$('<div id="detailsContainer">')
 
 				Sigma.HypermediaContainer(
-					'Sigma.Hypermedia.Details.Container'
+					'Sigma.Hypermedia.DetailsView.Container'
 				,	{
 						defaults:
 						{
@@ -40,6 +42,22 @@ steal(
 										target: 'details'
 									}
 								}
+							,	'drilldown':
+								{
+									Handler: Sigma.Hypermedia.DrillDown
+								,	options:
+									{
+										target: 'drilldown'
+									}
+								}
+							,	'comments':
+								{
+									Handler: Sigma.Hypermedia.Comments
+								,	options:
+									{
+										target: 'comments'
+									}
+								}
 							}
 						}
 					}
@@ -47,7 +65,7 @@ steal(
 					}
 				)
 
-				var details_container = new Sigma.Hypermedia.Details.Container(
+				details_container = new Sigma.Hypermedia.DetailsView.Container(
 					details
 				,	{
 						id:'Details'

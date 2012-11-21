@@ -1,12 +1,12 @@
 Sigma.HypermediaControl(
-	'Sigma.Hypermedia.Details'
+	'Sigma.Hypermedia.DrillDown'
 ,	{
 		defaults: {}
 	}
 ,	{
 		init: function(element,options)
 		{
-			element.append('Hola')
+			element.append('DrillDown')
 		}
 	}
 )
