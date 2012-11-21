@@ -242,7 +242,7 @@ steal(	'sigma/model'
 					).pipe(
 						function(raw)
 						{
-							raw.rel=rel
+							raw.rel = (rel==undefined)?'root':rel
 							return	self.model(raw)
 						}
 					)

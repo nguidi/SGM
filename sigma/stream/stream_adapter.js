@@ -43,9 +43,10 @@ StreamAdapter(
 	,	{
 		subitems_rel:'comments'
 	,	actions_rel: 'actions'
-	,	getRoot: function()
+	,	getRoot: function(rel)
 		{
-			return this.model({_links:{self:{href:'/comments'}}}).Fetch()
+			return this.Fetch('/comments',rel)
+			//return this.model({_links:{self:{href:'/comments'}}}).Fetch('/comments',rel)
 		}
 	}
 	,	{}
