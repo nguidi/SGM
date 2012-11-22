@@ -52,14 +52,14 @@ steal(
 							)
 					}
 				)
-				
+
 				equal(stream_container.options.id,"Stream","ID Generated")
 
 
 				stop()
 				stream_container.options.slot
 					.then(
-						function(data) 
+						function(data)
 						{
 							start()
 							equal(data.constructor.fullName,"Sigma.Model.HAL.Resource.Stream","Resource Generated")
@@ -68,13 +68,13 @@ steal(
 							equals(data.embedded.attr('comments.0').constructor.fullName,"Sigma.Model.HAL.Comments", "embedded type ok");
 							can.each(
 								["TED","NERD","Friky"]
-							, 	function(title) 
+							, 	function(title)
 								{
 									ok(
 										can.grep(
 											stream.find('div.media-body h4')
 										,	function(item)
-											{	
+											{
 												return can.$(item).text() == title
 											}
 										).length > 0
