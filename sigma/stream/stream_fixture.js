@@ -3,7 +3,7 @@ steal(
 ,	function()
 	{
 		can.fixture(
-			'GET /comments'
+			'GET /posts'
 		,	function()
 			{
 			var	genActions
@@ -27,28 +27,76 @@ steal(
 					)
 				}
 			var	genComments
-			=	function()
+			=	function(url,i)
 				{
-				return	can
-					.map(
-						[
-							{owner: 'TED', value: 'Hola Mi Nombre es Ted'}
-						,	{owner: 'NERD', value: 'Hola Mi Nombre es Nerd'}
-						,	{owner: 'Friky', value: 'Hola Mi Nombre es Friky'}
-						]
-					,	function(comment)
+				return	can.map(
+						can.grep(
+							[
+								{of: 0, owner: 'Tragalibrencio', value: 'Yo me se todo!' ,icon: 'heart' }
+							,	{of: 0, owner: 'Trollencio', value: 'Machetes listos' ,icon: 'film'}
+							,	{of: 1, owner: 'Forever Alone', value: 'Alquien quiere ir conmigo?' ,icon: 'ok' }
+							,	{of: 1, owner: 'Putencia', value: 'Oh Pinochio!' ,icon: 'off'}
+							,	{of: 1, owner: 'Black Catter', value: 'Me parecio aver visto un lindo gatito' ,icon: 'home' }
+							,	{of: 2, owner: 'Bad Luck Brian', value: 'Me lo compre y me trajo tornillos adentro' ,icon: 'lock' }
+							]
+						,	function(comment)
+							{
+								return comment.of == i
+							}
+						)
+					,	function(comment,index)
 						{
 						return  new Sigma.fixtures
 							.hal_builder(
 								{
 									title: comment.owner
-								,	icon:'sitemap'
-								,	description: comment.owner+':'+comment.value
+										,	icon: comment.icon
+										,	description: comment.value
+										,	icon_align: (index % 2) ? 'right' : 'left'
 								}
-							,	'/comments'+'/'+comment.owner
+									,	url+'/comments'+'/'+comment.owner
 							).link(
 								{
-									'actions': genActions('/comments'+'/'+comment.owner)
+									'actions': genActions(url+'/comments'+'/'+comment.owner)
+								}
+							)
+						}
+					)
+				}
+
+			var genPost
+			=	function()
+				{
+				return can
+					.map(
+						[
+							{owner: 'Yao Ming', value: 'Hoy tengo examen', icon: 'print'}
+						,	{owner: 'Nerdencio', value: 'Hoy se estrena Star Wars VII: El ataque de Ponchio', icon: 'camera'}
+						,	{owner: 'Frikencio', value: 'Ya tengo el nuevo Iphone, a solo 16k', icon: 'book'}
+						]
+					,	function(post,index)
+						{
+						return	new Sigma.fixtures
+							.hal_builder(
+								{
+									title: post.owner
+								,	icon:  post.icon
+								,	description: post.value
+								,	align: 'left'
+								,	icon_align: 'left'
+								}
+							,	'/posts/'+post.owner
+							).link(
+								{
+								'comments':
+									{
+										href:'/comments'
+									}
+								,	'actions': genActions('/posts/'+post.owner)
+								}
+							).embedded(
+								{
+									'comments': genComments('/posts/'+post.owner,index)
 								}
 							)
 						}
@@ -56,18 +104,19 @@ steal(
 				}
 			return	new Sigma.fixtures
 				.hal_builder(
-					{ }
+					{
+					}
 				,	'/stream'
 				).link(
 					{
-					'comments':
-						{
-						href:'/comments'
-						}
+						'posts':
+							{
+								href:'/posts'
+							}
 					}
 				).embedded(
 					{
-					'comments': genComments()
+						'posts': genPost()
 					}
 				).get_document()
 			}
