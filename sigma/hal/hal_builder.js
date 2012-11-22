@@ -4,7 +4,7 @@ steal(
 ).then(
 	function()
 	{
-        Sigma.fixtures=Sigma.fixtures||{}
+		Sigma.fixtures=Sigma.fixtures||{}
 		can.Construct(
 			'Sigma.fixtures.hal_builder'
 		,	{}

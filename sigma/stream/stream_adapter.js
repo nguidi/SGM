@@ -1,10 +1,11 @@
-var StreamAdapter = Sigma.Model.HAL.Resource(
-	{
-		align:'left'
-	,	action_align: 'right'
-	,	subitems_rel: false
-	,	actions_rel: false
-	}
+var StreamAdapter
+=	Sigma.Model.HAL.Resource(
+		{
+			align:'left'
+		,	action_align: 'right'
+		,	subitems_rel: false
+		,	actions_rel: false
+		}
 	,	{
 		getSubitems:function()
 			{
@@ -42,29 +43,29 @@ var StreamAdapter = Sigma.Model.HAL.Resource(
 
 StreamAdapter(
 	'Sigma.Model.HAL.Resource.Stream'
-	,	{
-			subitems_rel:'posts'
-		,	getRoot: function()
+,	{
+		subitems_rel:'posts'
+	,	getRoot: function(rel)
 			{
-				return this.model({_links:{self:{href:'/posts'}}}).Fetch()
+				return this.Fetch('/posts',rel)
 			}
-		}
-	,	{}
+	}
+,	{}
 )
 
 StreamAdapter(
 	'Sigma.Model.HAL.Posts'
-	,	{
-			subitems_rel:'comments'
-		,	actions_rel: 'actions'
+,	{
+		subitems_rel:'comments'
+	,	actions_rel: 'actions'
 	}
-	,	{ }
+,	{}
 )
 
 StreamAdapter(
 	'Sigma.Model.HAL.Comments'
-	,	{
+,	{
 		actions_rel: 'actions'
-		}
-	,	{ }
+	}
+,	{}
 )

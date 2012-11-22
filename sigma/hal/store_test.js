@@ -15,6 +15,7 @@ steal(
 					.then(
 						function(items)
 						{
+							console.log(items)
 							ok(items,'OK')
 							start()
 						return	items

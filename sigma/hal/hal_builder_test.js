@@ -27,7 +27,6 @@ steal(
 					}
 				)
 				.get_document()
-
 				ok(doc._links, "links OK")
 				ok(doc._links.yes, "conditional positive link OK")
 				ok(!doc._links.no, "conditional negative link OK")

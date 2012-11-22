@@ -36,14 +36,7 @@ steal(
 		,	{
 				id:'Stream'
 			,	target: 'Stream'
-			,	slot: Sigma.Model.HAL.Resource.Stream.getRoot()
-					.pipe(
-						function(raw)
-						{//solo para el caso de root hay que explicitar el rel (buscar algo mas consistente/elegante)
-							raw.rel='comments'
-						return	raw
-						}
-					)
+			,	slot: Sigma.Model.HAL.Resource.Stream.getRoot('comments')
 			}
 		)
 	}
