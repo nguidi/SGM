@@ -15,7 +15,8 @@ steal(
 					function(collection)
 					{
 						collection.items=collection.items.slice(1,6)
-					var	page1=Sigma.fixtures.collection.pageable
+					var	page1
+					=	Sigma.fixtures.collection.pageable
 						.getPage(
 							collection
 						,	{
@@ -41,12 +42,13 @@ steal(
 			{
 				stop()
 				can.when(
-				  Sigma.fixtures.collection.getCollection("/provincias")
+					Sigma.fixtures.collection.getCollection("/provincias")
 				).then(
 					function(collection)
 					{
 						collection.items=collection.items.slice(1,6)
-					var	scrollpage1=Sigma.fixtures.collection.scrollable
+					var	scrollpage1
+					=	Sigma.fixtures.collection.scrollable
 						.getPage(
 							collection
 						,	{
@@ -84,7 +86,8 @@ steal(
 					function(collection)
 					{
 					var	the_first
-					=	Sigma.Model.HAL.Resource("Sigma.Model.HAL.Collection").getRoot('/provincias?items-per-page=2');
+					=	Sigma.Model.HAL.Resource("Sigma.Model.HAL.Collection")
+						.getRoot('/provincias?items-per-page=2');
 						can.Model.List( 'Sigma.Model.HAL.Collection.List');
 						the_first.then(
 							function(first)
@@ -92,10 +95,10 @@ steal(
 								stop()
 								equals(first.constructor.fullName, "Sigma.Model.HAL.Collection", "links type ok");
 								equals(first.embedded.collection.constructor.fullName, "Sigma.Model.HAL.Collection.List", "embedded type ok");
-								ok(first.links.next, "first next OK");
+-								ok(first.links.next, "first next OK");
 								ok(!first.links.prev, "no first prev OK");
 								equal(first.embedded.collection.length,2, "length OK");
-							var the_next = first.links.next.fetch()
+							var	the_next = first.links.next.fetch()
 								the_next.then(
 									function(next)
 									{
@@ -103,13 +106,13 @@ steal(
 										equal(next.embedded.collection.length,2, "length OK");
 										ok(next.links.next, "next next OK");
 										ok(next.links.prev, "next prev OK");
-									var the_last = next.links.next.fetch()
+									var	the_last = next.links.next.fetch()
 										the_last.then(
 											function(last)
 											{
 												equal(last.embedded.collection.length,1, "length OK");
 												ok(!last.links.next, "no last next OK");
-												ok(last.links.prev, "last prev OK");
+-												ok(last.links.prev, "last prev OK");
 												start()
 											}
 										)
@@ -124,7 +127,7 @@ steal(
 			}
 		)
 		test(
-		  "Sigma.Model.HAL.Collection Scrollable"
+			"Sigma.Model.HAL.Collection Scrollable"
 		,	function()
 			{
 				stop()
@@ -151,7 +154,7 @@ steal(
 						,	{}
 						)
 						can.Model.List( 'Sigma.Model.HAL.Collection.List');
-					var	the_first = Sigma.Model.HAL.Collection.getRoot()
+						var the_first = Sigma.Model.HAL.Collection.getRoot()
 						the_first.then(
 							function(first)
 							{
@@ -162,7 +165,7 @@ steal(
 								ok(!first.links.next, "no first next OK");
 								ok(!first.links.prev, "no first prev OK");
 								equal(first.embedded.collection.length,2, "length OK");
-							var	the_next = first.links.more.fetch()
+								var the_next = first.links.more.fetch()
 								the_next.then(
 									function(next)
 									{
@@ -171,7 +174,7 @@ steal(
 										ok(next.links.more, "next more OK");
 										ok(!first.links.next, "no first next OK");
 										ok(!first.links.prev, "no first prev OK");
-									var	the_last = next.links.more.fetch()
+										var the_last = next.links.more.fetch()
 										the_last.then(
 											function(last)
 											{
