@@ -1,55 +1,45 @@
-Sigma.HypermediaControl(
-	'Sigma.Hypermedia.Details'
-,	{
-		defaults: {
-			view : '//sigma/details_view/views/details.mustache'
-		,	p_css: {
-				'line-height' : '25px'
+steal(
+	'sigma/stock/controls/lib'
+).then(
+	function()
+	{
+		Sigma.HypermediaControl(
+			'Sigma.Hypermedia.Comments'
+		,	{
+				defaults: {
+					view : '//sigma/stock/controls/details/views/reply.mustache'
+				,	input_css: {
+						'float': 'left'
+					}
+				,	ul_css: {
+						'float':'right'
+					,	'list-style-type': 'none'
+					,	'margin-right': '5%'
+					}
+				}
 			}
-		,	h4_css: {
-				'margin-top': '10px'
-			,	'margin-bottom': '10px'
+		,	{
+				init: function(element,options)
+				{
+					console.log(element,options)
+
+					can.addClass(
+						element
+					,	'well media span5'
+					)	
+
+					can.append(
+						element
+					,	can.view(
+							this.options.view
+						,	this.options.slot
+						)
+					)
+					element.find('input').css(this.options.input_css)
+
+					element.find('ul').css(this.options.ul_css)
+				}
 			}
-		,	icon_css: {
-				'margin-top': '10px'
-			,	'text-align': 'center'
-			,	'padding': '10px'
-			,	'border-radius': '10px'
-			,	'line-height': '1'
-			,	'background-color': '#9D261D'
-			,	'font-size': '40px'
-			,	'text-shadow': '2px 2px 3px #222'
-			,	'color': 'white'
-			}
-		}
-	}
-,	{
-		init: function(element,options)
-		{
-			can.addClass(
-				element
-			,	'well media span5'
-			)
-
-			can.append(
-				element
-			,	can.view(
-					this.options.view
-				,	this.options.slot
-				)
-			)
-
-			element.find('a.media-icon').css(
-				this.options.icon_css
-			)
-
-			element.find('h4.media-heading').css(
-				this.options.h4_css
-			)
-
-			element.find('p').css(
-				this.options.p_css
-			)
-		}
+		)
 	}
 )

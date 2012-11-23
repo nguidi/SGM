@@ -9,6 +9,35 @@ Sigma.Model.HAL.Resource(
 ,	{}
 )
 
+Sigma.Model.HAL.Resource(
+	'Sigma.Model.HAL.Resource.Comments'
+,	{
+		actions_rel: 'actions'
+	,	getRoot: function(id)
+		{
+			return this.Fetch('/comments/'+id,'reply')
+		}
+	}
+,	{
+		getActions:function()
+			{
+			return	this.constructor.actions_rel
+				&&	this.links.attr(this.constructor.actions_rel)
+			}
+		}
+)
+
+Sigma.Model.HAL.Resource(
+	'Sigma.Model.HAL.Resource.DrillDown'
+,	{
+		getRoot: function(id)
+		{
+			return this.Fetch('/drilldown/'+id,'drilldown')
+		}
+	}
+,	{}
+)
+
 var DetailsViewsAdapter
 =	Sigma.Model.HAL.Resource(
 		{

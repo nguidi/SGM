@@ -1,21 +1,12 @@
 steal(
-<<<<<<< HEAD:sigma/details_view/details_view_test.js
 	'sigma/lib'
 ,	'sigma/lib/hypermedia.js'
 ).then(
-	'sigma/details_view/details_view_fixture.js'
-,	'sigma/details_view/details.js'
-,	'sigma/details_view/drilldown.js'
-,	'sigma/details_view/comments.js'
-,	'sigma/media/media.css'
-,	'sigma/media/stream_adapter.js'
-,	'sigma/media/stream_mustache.js'
-,	'sigma/media/stream_mustache.css'
+	'sigma/stock/controls/details/fixtures.js'
+,	'sigma/stock/controls/details/details.js'
+,	'sigma/stock/controls/details/drilldown.js'
+,	'sigma/stock/controls/details/comments.js'
 ,	'can/view/mustache'
-=======
-	'sigma/stock/controls/details'
-,	'sigma/stock/controls/details/fixtures.js'
->>>>>>> 42e059e8a766a4eb1a478f34f6fbc7592fc998d9:sigma/stock/controls/details/tests.js
 ).then(
 	function()
 	{

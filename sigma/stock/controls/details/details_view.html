@@ -8,8 +8,10 @@
     <![endif]-->
 </head>
 <body>
-	<div id="detailsContainer"></div>
-    	<script type='text/javascript' src='../../steal/steal.js'></script>
+	<div id="detailsContainer"></div></br>
+	<div id="replyContainer"></div></br>
+	<div id="drillDownContainer"></div>
+    	<script type='text/javascript' src='../../../../steal/steal.js'></script>
 </body>
 </html>
 
@@ -20,18 +22,13 @@
 	,	'sigma/lib/style.js'
 	,	'sigma/lib/hypermedia.js'
 	,	'canui/list'
+	,	'can/view/mustache'
 	).then(
-		'sigma/details_view/details_view_adapters.js'
-	,	'sigma/details_view/details_view_fixture.js'
-	,	'sigma/details_view/details.js'
-	,	'sigma/details_view/drilldown.js'
-	,	'sigma/details_view/comments.js'
-	).then(
-		'can/view/mustache'
-	,	'sigma/media/media.css'
-	,	'sigma/media/stream_adapter.js'
-	,	'sigma/media/stream_mustache.js'
-	,	'sigma/media/stream_mustache.css'
+		'sigma/stock/controls/details/details_view_adapters.js'
+	,	'sigma/stock/controls/details/fixtures.js'
+	,	'sigma/stock/controls/details/details.js'
+	,	'sigma/stock/controls/details/drilldown.js'
+	,	'sigma/stock/controls/details/comments.js'
 	).then(
 
 		function()
@@ -44,16 +41,7 @@
 					{
 						media_types:
 						{
-							
-							'stream': 
-							{
-								Handler: Sigma.Hypermedia.Stream
-							,	options:
-								{
-									target: 'stream'
-								}
-							}
-						,	'details':
+							'details':
 							{
 								Handler: Sigma.Hypermedia.Details
 							,	options:
@@ -87,9 +75,27 @@
 			new Sigma.Hypermedia.DetailsView.Container(
 				$('#detailsContainer')
 			,	{
-					id:'Stream'
-				,	target: 'Stream'
+					id:'Details'
+				,	target: 'Details'
 				,	slot: Sigma.Model.HAL.Resource.Details.getRoot(1)
+				}
+			)
+
+			new Sigma.Hypermedia.DetailsView.Container(
+				$('#replyContainer')
+			,	{
+					id:'Reply'
+				,	target: 'Reply'
+				,	slot: Sigma.Model.HAL.Resource.Comments.getRoot(1)
+				}
+			)
+
+			new Sigma.Hypermedia.DetailsView.Container(
+				$('#drillDownContainer')
+			,	{
+					id:'DrillDown'
+				,	target: 'DrillDown'
+				,	slot: Sigma.Model.HAL.Resource.DrillDown.getRoot(1)
 				}
 			)
 		}

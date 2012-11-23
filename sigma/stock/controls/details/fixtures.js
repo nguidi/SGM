@@ -49,6 +49,46 @@ steal(
 				return  new Sigma.fixtures
 						.hal_builder(
 							genDetails(data.url.split('/').reverse()[0])
+						,	'/details'
+						).get_document()
+			}
+		)
+
+		var genCommentsActions = function()
+		{
+			return can.map(
+				[
+					{id: 'adjuntar', value:'Adjuntar', icon: 'file'}
+				,	{id: 'con', value:'Junto A', icon: 'user'}
+				,	{id: 'lugar', value:'Posicion', icon: 'globe'}
+				]
+			,	function(action)
+				{
+					return	{
+						title: action.value
+					,	icon: action.icon
+					,	align: 'right'
+					,	href: '/actions/'+action.id
+					}
+				}
+			)
+		}
+
+		can.fixture(
+			'GET /comments/{id}'
+		,	function(data)
+			{	
+				return  new Sigma.fixtures
+						.hal_builder(
+							{
+								place_holder: 'Ingrese un comentario'
+							,	button_text: 'Comentar'
+							}
+						,	'/comments'
+						).link(
+							{
+								'actions': genCommentsActions()
+							}
 						).get_document()
 			}
 		)
