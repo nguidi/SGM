@@ -6,6 +6,11 @@ steal(
 ,	'sigma/details_view/details.js'
 ,	'sigma/details_view/drilldown.js'
 ,	'sigma/details_view/comments.js'
+,	'sigma/media/media.css'
+,	'sigma/media/stream_adapter.js'
+,	'sigma/media/stream_mustache.js'
+,	'sigma/media/stream_mustache.css'
+,	'can/view/mustache'
 ).then(
 	function()
 	{	
@@ -19,7 +24,7 @@ steal(
 				,	{
 						getRoot: function()
 						{
-							return this.model({_links:{self:{href:'/details'}}}).Fetch()
+							return this.Fetch('/streamView')
 						}
 					}
 				,	{}
@@ -34,7 +39,16 @@ steal(
 						{
 							media_types:
 							{
-								'details':
+								
+								'stream': 
+								{
+									Handler: Sigma.Hypermedia.Stream
+								,	options:
+									{
+										target: 'stream'
+									}
+								}
+							,	'details':
 								{
 									Handler: Sigma.Hypermedia.Details
 								,	options:

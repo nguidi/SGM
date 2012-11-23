@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Stream Mustache Demo</title>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div id="detailsContainer"></div>
+    	<script type='text/javascript' src='../../steal/steal.js'></script>
+</body>
+</html>
+
+<script type="text/javascript">
+
+	steal(
+		'sigma/lib'
+	,	'sigma/lib/style.js'
+	,	'sigma/lib/hypermedia.js'
+	,	'canui/list'
+	).then(
+		'sigma/details_view/details_view_adapters.js'
+	,	'sigma/details_view/details_view_fixture.js'
+	,	'sigma/details_view/details.js'
+	,	'sigma/details_view/drilldown.js'
+	,	'sigma/details_view/comments.js'
+	).then(
+		'can/view/mustache'
+	,	'sigma/media/media.css'
+	,	'sigma/media/stream_adapter.js'
+	,	'sigma/media/stream_mustache.js'
+	,	'sigma/media/stream_mustache.css'
+	).then(
+
+		function()
+		{
+		
+			Sigma.HypermediaContainer(
+				'Sigma.Hypermedia.DetailsView.Container'
+			,	{
+					defaults:
+					{
+						media_types:
+						{
+							
+							'stream': 
+							{
+								Handler: Sigma.Hypermedia.Stream
+							,	options:
+								{
+									target: 'stream'
+								}
+							}
+						,	'details':
+							{
+								Handler: Sigma.Hypermedia.Details
+							,	options:
+								{
+									target: 'details'
+								}
+							}
+						,	'drilldown':
+							{
+								Handler: Sigma.Hypermedia.DrillDown
+							,	options:
+								{
+									target: 'drilldown'
+								}
+							}
+						,	'reply':
+							{
+								Handler: Sigma.Hypermedia.Comments
+							,	options:
+								{
+									target: 'comments'
+								}
+							}
+						}
+					}
+				}
+			,	{
+				}
+			)
+
+			new Sigma.Hypermedia.DetailsView.Container(
+				$('#detailsContainer')
+			,	{
+					id:'Stream'
+				,	target: 'Stream'
+				,	slot: Sigma.Model.HAL.Resource.Details.getRoot(1)
+				}
+			)
+		}
+
+	)
+
+</script>

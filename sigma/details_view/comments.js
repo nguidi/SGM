@@ -6,6 +6,7 @@ Sigma.HypermediaControl(
 ,	{
 		init: function(element,options)
 		{
+			console.log('REPLY',element,options)
 			element.append('Comments')
 		}
 	}
