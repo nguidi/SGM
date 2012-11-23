@@ -10,7 +10,7 @@ steal(
 		,	{
 				defaults:{
 					target: 'Root'
-				,	view: 'views/init.ejs'
+				,	view: '//stock/views/home/init.ejs'
 				}
 			}
 		,	{}
