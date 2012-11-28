@@ -25,3 +25,6 @@
 [submodule "sgm-nodejs"]
 	path = sgm-nodejs
 	url = git@github.com:SIGMA-IT/sgm-nodejs.git
+[submodule "underscore"]
+	path = underscore
+	url = git@github.com:documentcloud/underscore.git
