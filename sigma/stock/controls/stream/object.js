@@ -2,7 +2,7 @@ Sigma.HypermediaControl(
 	'Sigma.Hypermedia.Object'
 ,	{
 		defaults: {
-			view : '//sigma/stock/controls/stream/views/object.mustache'
+			view : false
 		}
 	}
 ,	{

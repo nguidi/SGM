@@ -60,20 +60,20 @@ Sigma.HypermediaControl(
 					{
 						control: Sigma.Hypermedia.Object
 					,	class:'media-object'
-					,	view: '//sigma/stock/controls/stream/views/object.ejs'
-					//,	view: '//sigma/stock/controls/stream/views/object.mustache'
+					//,	view: '//sigma/stock/views/stream/object.ejs'
+					,	view: '//sigma/stock/views/stream/object.mustache'
 					}
 				,	{
 						control: Sigma.Hypermedia.Body
 					,	class:'media-body'
-					,	view: '//sigma/stock/controls/stream/views/body.ejs'
-					//,	view: '//sigma/stock/controls/stream/views/body.mustache'
+					//,	view: '//sigma/stock/views/stream/body.ejs'
+					,	view: '//sigma/stock/views/stream/body.mustache'
 					}
 				,	{
 						control: Sigma.Hypermedia.Actions
 					,	class:'media-actions'
-					,	view: '//sigma/stock/controls/stream/views/actions.ejs'
-					//,	view: '//sigma/stock/controls/stream/views/actions.mustache'
+					//,	view: '//sigma/stock/views/stream/actions.ejs'
+					,	view: '//sigma/stock/views/stream/actions.mustache'
 					}
 				]
 			,	function(media)
