@@ -22,3 +22,6 @@
 [submodule "funcunit"]
 	path = funcunit
 	url = git://github.com/bitovi/funcunit.git
+[submodule "sgm-nodejs"]
+	path = sgm-nodejs
+	url = git@github.com:SIGMA-IT/sgm-nodejs.git
