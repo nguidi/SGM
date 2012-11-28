@@ -23,7 +23,7 @@ steal(
 				.then(
 					function()
 					{
-						ok(this.prefetchs['/provincias'],'provincias OK')
+						equal(this.prefetchs['/provincias'][0].id,'BUE','provincias OK')
 						ok(this.prefetchs['/instituciones-univ'],'instituciones OK')
 						equal(this.find('/provincias','id','BUE').id,'BUE','store.find OK')
 						equal(this.filter('/instituciones-univ','provincia','BUE').length,8,'store.filter OK')
