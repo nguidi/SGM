@@ -18,17 +18,16 @@
 <script type="text/javascript">
 
 	steal(
-		'sigma/lib'
-	,	'sigma/lib/style.js'
-	,	'sigma/lib/hypermedia.js'
-	,	'canui/list'
+		'sigma/stock/controls/lib'
 	,	'can/view/mustache'
 	).then(
-		'sigma/stock/controls/details/details_view_adapters.js'
+		'sigma/stock/controls/details/adapters.js'
 	,	'sigma/stock/controls/details/fixtures.js'
-	,	'sigma/stock/controls/details/details.js'
+	).then(
+		'sigma/stock/controls/details/details.js'
 	,	'sigma/stock/controls/details/drilldown.js'
 	,	'sigma/stock/controls/details/comments.js'
+	,	'sigma/lib/style.js'
 	).then(
 
 		function()
@@ -47,6 +46,9 @@
 							,	options:
 								{
 									target: 'details'
+								// enlace a symlink no funciona - dunno why
+								//,	view: '//sigma/stock/views/details/details.mustache'
+								,	view: '//sigma/stock/controls/details/views/details.mustache'
 								}
 							}
 						,	'drilldown':
@@ -55,6 +57,8 @@
 							,	options:
 								{
 									target: 'drilldown'
+								,	view_drilldown: '//sigma/stock/controls/details/views/drilldown.mustache'
+								,	view_breadcrumb: '//sigma/stock/controls/details/views/breadcrumb.mustache'
 								}
 							}
 						,	'reply':
@@ -63,6 +67,9 @@
 							,	options:
 								{
 									target: 'comments'
+								// enlace a symlink no funciona - dunno why
+								//,	view: '//sigma/stock/views/details/reply.mustache'
+								,	view: '//sigma/stock/controls/details/views/reply.mustache'
 								}
 							}
 						}
@@ -95,7 +102,7 @@
 			,	{
 					id:'DrillDown'
 				,	target: 'DrillDown'
-				,	slot: Sigma.Model.HAL.Resource.DrillDown.getRoot(1)
+				,	slot: Sigma.Model.HAL.Resource.DrillDown.getRoot('/bebidas')
 				}
 			)
 		}

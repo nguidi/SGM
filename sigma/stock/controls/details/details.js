@@ -7,7 +7,7 @@ steal(
 			'Sigma.Hypermedia.Details'
 		,	{
 				defaults: {
-					view : '//sigma/stock/controls/details/views/details.mustache'
+					view : false
 				,	p_css: {
 						'line-height' : '25px'
 					}

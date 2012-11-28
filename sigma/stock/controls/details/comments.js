@@ -7,7 +7,7 @@ steal(
 			'Sigma.Hypermedia.Comments'
 		,	{
 				defaults: {
-					view : '//sigma/stock/controls/details/views/reply.mustache'
+					view : false
 				,	input_css: {
 						'float': 'left'
 					}
@@ -21,8 +21,6 @@ steal(
 		,	{
 				init: function(element,options)
 				{
-					console.log(element,options)
-
 					can.addClass(
 						element
 					,	'well media span5'
