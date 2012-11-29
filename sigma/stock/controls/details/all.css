@@ -55,8 +55,8 @@
   background-image: url(../img/glyphicons-halflings-white.png);
   opacity: 1;
 }
-.bs-docs-sidenav.affix {
-  top: 40px;
+.bs-docs-sidenav {
+  margin-top: 0px;
 }
 .bs-docs-sidenav.affix-bottom {
   position: absolute;

@@ -17,7 +17,7 @@ Sigma.HypermediaControl(
 						:'<div>'
 			,	klass=
 					is_list
-						?'medias'
+						?'media-list'
 						:'media'
 				this.$media=
 					existing
