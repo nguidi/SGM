@@ -1,6 +1,5 @@
 steal(
 	'sigma/stock/controls/lib'
-,	'sigma/stock/controls/details/all.css'
 ).then(
 	function()
 	{
@@ -15,10 +14,6 @@ steal(
 		,	{
 				init: function(element,options)
 				{
-					console.log(element,options)
-
-					asd = options.slot
-
 					var exists = 	element.find('ul').hasClass('breadcrumb') 
 						     	|| element.find('ul').hasClass('drilldown')
 

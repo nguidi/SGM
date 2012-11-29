@@ -1,8 +1,8 @@
 steal(
-	'sigma/hal/hal_builder.js'
-,	function ()
-	{
-		
+	'can/util/fixture'
+,	'sigma/hal/hal_builder.js'
+,	function()
+	{		
 		var comments = can.map(
 			[1,2,3,4,5,6,7,8,9,10]
 		,	function(it)
