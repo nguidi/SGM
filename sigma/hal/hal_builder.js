@@ -1,86 +1,88 @@
 (
-      function(exports)
+	function(exports)
 	{
-           exports.hal_builder
-            =	function(aData,uri)
-                  {
-                              this.resource
-                          =	new	hal.Resource(aData,uri)
-                  return	this
-                    }
-              exports.hal_builder
-            .prototype.link
-                =	function(aLink, isTrue)
-                      {
-                      var	self=this
-                          if(isTrue==false)
-                              return	this
-                            _.each(
-                                        aLink
-                          ,	function(link_item,rel)
-					{
-                                               if(_.isArray(link_item))
-                                                       _.each(
-                                                                _.map(
-                                                                 link_item
-                                                              ,	function(link_item)
-                                                                  {
-                                                                      var	result
-                                                                     =	{}
-                                                                           result[rel]
-                                                                            =	link_item
-                                                                    return	result
-                                                                  }
-                                                              )
-                                                      ,	function(singlelink) {
-                                                                       self.link(singlelink)
-                                                          }
-                                                      )
-                                              else {
-                                                 self.resource
-                                                  .link(rel,link_item)
-                                           }
-					}
-                               )
-                      return	this
-                    }
-              exports.hal_builder
-            .prototype.embedded
-            =	function(anEmbedded)
-                 {
-                      var	self=this
-                          _.each(
-                                        anEmbedded
-                             ,	function(item,key)
-					{
-                                            self.resource
-                                          .embed(
-                                                        key
-                                            ,	(
-                                                            _.isArray(item)
-                                                                                ?_.map(
+		exports.hal_builder
+		=	function(aData,uri)
+			{
+				this.resource
+				=	new	hal.Resource(aData,uri)
+			return	this
+			}
+			exports.hal_builder
+			.prototype.link
+			=	function(aLink, isTrue)
+				{
+				var	self=this
+					if(isTrue==false)
+						return	this
+					_.each(
+						aLink
+					,	function(link_item,rel)
+						{
+							if(_.isArray(link_item))
+								_.each(
+									_.map(
+										link_item
+									,	function(link_item)
+										{
+										var	result
+										=	{}
+											result[rel]
+											=	link_item
+										return	result
+										}
+									)
+								,	function(singlelink)
+									{
+										self.link(singlelink)
+									}
+								)
+							else
+							{
+								self.resource
+								.link(rel,link_item)
+							}
+						}
+					)
+				return	this
+				}
+			exports.hal_builder
+			.prototype.embedded
+			=	function(anEmbedded)
+				{
+				var	self=this
+					_.each(
+						anEmbedded
+					,	function(item,key)
+						{
+							self.resource
+							.embed(
+								key
+							,	(
+									_.isArray(item)
+										?_.map(
 											item
-                                                                                ,	function(i)
+										,	function(i)
 											{
-                                                                                     return	i.resource
+												return	i.resource
 											}
 										)
-                                                                             :item.resource
-                                                 )
-						)
-					}
-                               )
-                      return	this
-                    }
-              exports.hal_builder
-            .prototype.get_document
-                =	function()
-                   {
-                      return	this.resource.toJSON()
-			}
+										:item.resource
+								)
+							)
+						}
+					)
+				return	this
+				}
+			exports.hal_builder
+			.prototype.get_document
+				=	function()
+				{
+					return	this.resource.toJSON()
+				}
 	}
 )(
-       typeof exports === 'undefined'
-         ?this['Sigma'].fixtures //ATENTI ACA
-           :exports
+	typeof exports === 'undefined'
+		?this['Sigma'].fixtures //ATENTI ACA
+		:exports
 )
