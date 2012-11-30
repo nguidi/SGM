@@ -1,4 +1,7 @@
 steal(
+ 'can'
+,	'can/util/fixture'
+).then(
 	'sigma/lib/parseuri.js'
 ,	'sigma/lib/uritemplates.js'
 ,	'sigma/lib/hal'

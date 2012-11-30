@@ -1,7 +1,8 @@
 steal(
-	'sigma/model/hal.js'
-).then(
-	'sigma/hal/hal_builder.js'
+ 'sigma/lib/hal'
+,	'underscore'
+,	'can'
+).then(	'sigma/hal/hal_builder.js'
 ,	function()
 	{
 		module("sigma/hal/builder")

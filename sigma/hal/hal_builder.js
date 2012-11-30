@@ -1,86 +1,86 @@
-steal(
-	'sigma/lib/hal'
-,	'can'
-).then(
-	function()
+(
+      function(exports)
 	{
-		Sigma.fixtures=Sigma.fixtures||{}
-		can.Construct(
-			'Sigma.fixtures.hal_builder'
-		,	{}
-		,	{
-				init:
-					function(aData,uri)
+           exports.hal_builder
+            =	function(aData,uri)
+                  {
+                              this.resource
+                          =	new	hal.Resource(aData,uri)
+                  return	this
+                    }
+              exports.hal_builder
+            .prototype.link
+                =	function(aLink, isTrue)
+                      {
+                      var	self=this
+                          if(isTrue==false)
+                              return	this
+                            _.each(
+                                        aLink
+                          ,	function(link_item,rel)
 					{
-						this.resource
-						=	new	hal.Resource(aData,uri)
+                                               if(_.isArray(link_item))
+                                                       _.each(
+                                                                _.map(
+                                                                 link_item
+                                                              ,	function(link_item)
+                                                                  {
+                                                                      var	result
+                                                                     =	{}
+                                                                           result[rel]
+                                                                            =	link_item
+                                                                    return	result
+                                                                  }
+                                                              )
+                                                      ,	function(singlelink) {
+                                                                       self.link(singlelink)
+                                                          }
+                                                      )
+                                              else {
+                                                 self.resource
+                                                  .link(rel,link_item)
+                                           }
 					}
-			,	link:
-					function(aLink, isTrue)
+                               )
+                      return	this
+                    }
+              exports.hal_builder
+            .prototype.embedded
+            =	function(anEmbedded)
+                 {
+                      var	self=this
+                          _.each(
+                                        anEmbedded
+                             ,	function(item,key)
 					{
-					var	self=this
-						if(isTrue==false)
-						return	this
-						can.each(
-							aLink
-						,	function(item,key)
-							{
-								if (can.isArray(item))
-									can.each(
-										can.map(
+                                            self.resource
+                                          .embed(
+                                                        key
+                                            ,	(
+                                                            _.isArray(item)
+                                                                                ?_.map(
 											item
-										,	function(plurallink)
+                                                                                ,	function(i)
 											{
-												var newObject = new Object()
-												newObject[key] = plurallink
-												return newObject
+                                                                                     return	i.resource
 											}
 										)
-									,	function(singlelink) {
-											self.link(singlelink)
-										}
-									)
-								else {
-									self.resource
-									.link(key,item)
-								}
-							}
+                                                                             :item.resource
+                                                 )
 						)
-					return	this
 					}
-			,	embedded:
-					function(anEmbedded)
-					{
-					var	self=this
-						can.each(
-							anEmbedded
-						,	function(item,key)
-							{
-								self.resource
-								.embed(
-									key
-								,	(
-										can.isArray(item)
-												?can.map(
-													item
-												,	function(i)
-													{
-													return	i.resource
-													}
-												)
-												:item.resource
-									)
-								)
-							}
-						)
-					return	this
-					}
-			,	get_document:
-					function()
-					{
-					return	this.resource.toJSON()
-					}
+                               )
+                      return	this
+                    }
+              exports.hal_builder
+            .prototype.get_document
+                =	function()
+                   {
+                      return	this.resource.toJSON()
 			}
-		)
 	}
+)(
+       typeof exports === 'undefined'
+         ?this['Sigma'].fixtures //ATENTI ACA
+           :exports
 )
