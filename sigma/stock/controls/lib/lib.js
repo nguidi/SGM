@@ -6,7 +6,7 @@ steal(
 ).then(
 	function()
 	{
-		can.Construct('Sigma.Media')
+         NS('Sigma.Media')
 	}
 ).then(
 	'sigma/stock/controls/stream/actions.js'

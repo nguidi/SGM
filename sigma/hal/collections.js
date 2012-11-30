@@ -6,6 +6,7 @@ steal(
 ).then(
 	function()
 	{
+         NS('Sigma.fixtures')
 		can.Construct(
 			'Sigma.fixtures.collection'
 		,	{

@@ -1,5 +1,6 @@
 steal(
 	'sigma/model/hal.js'
+,	'sigma/lib' // /fixtures.js'
 ,	'sigma/hal/store.js'
 ,	'sgm-nodejs/spec-transform.js'
 ).then(
