@@ -17,7 +17,7 @@ steal(
 				{
 					can.append(
 						this.element
-					,	can.$('<div class="	content">')
+					,	can.$('<div class="content">')
 					)
 
 					can.append(
@@ -93,7 +93,7 @@ steal(
 
 			,	'{window} scroll': function(el,ev)
 				{
-					if (can.$(el).height() + can.$(el).scrollTop() == can.$(document).height())
+					if (can.$(el).height() + can.$(el).scrollTop() == can.$(document).height() && this.options.slot.attr('more'))
 					{
 						var self = this
 						Sigma.Model.HAL.Collection.getRoot(self.options.slot.attr('more').attr('href'),'scrollable')
