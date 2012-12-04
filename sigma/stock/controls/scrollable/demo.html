@@ -45,15 +45,14 @@
 	steal(
 		'sigma/stock/controls/lib'
 	,	'can/view/mustache'
-	,	'sigma/stock/controls/scrollable'
+	,	'sigma/fixtures'
+	).then(
+		'sigma/stock/controls/scrollable'
 	,	'sigma/stock/controls/scrollable/adapters.js'
 	).then(
 		'sigma/lib/style.js'
-	).then(
-
-		function()
+	,	function()
 		{
-		
 			Sigma.HypermediaContainer(
 				'Sigma.Hypermedia.Scrollable.Container'
 			,	{
@@ -77,7 +76,8 @@
 				}
 			)
 
-			Sigma.fixtures.collection.defaults.assets_path = '/SGM/sigma/hal/fixtures'
+			can.fixture('GET /pageable-scrollable.csv',steal.idToUri("//stock/fixtures/hal/pageable-scrollable.csv").path)
+			Sigma.fixtures.collection.defaults.assets_path = 'no da bola a esto'
 
 			Sigma.fixtures.collection.scrollable.getCollectionsFixturator(
 					Sigma.fixtures.collection.getCollection("/pageable-scrollable")

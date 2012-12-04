@@ -15,6 +15,7 @@ steal(
 		,	{
 				init: function(element,options)
 				{
+					this._super.apply(this,arguments)
 					can.append(
 						this.element
 					,	can.$('<div class="content">')
@@ -23,7 +24,7 @@ steal(
 					can.append(
 						this.element
 					,	can.$('<div class="links">')
-					)					
+					)
 
 					can.append(
 						this.element
@@ -66,7 +67,7 @@ steal(
 					)
 				}
 
-			,	updateLinks: function() 
+			,	updateLinks: function()
 				{
 					this.element
 						.find('div.links')
@@ -86,7 +87,7 @@ steal(
 							.find('ul.paginable')
 							.find('li.previous')
 							.removeClass('disabled')
-					else 
+					else
 						this.element
 							.find('ul.paginable')
 							.find('li.previous')
@@ -97,7 +98,7 @@ steal(
 							.find('ul.paginable')
 							.find('li.next')
 							.removeClass('disabled')
-					else 
+					else
 						this.element
 							.find('ul.paginable')
 							.find('li.next')
@@ -111,7 +112,7 @@ steal(
 					.then(
 						function(slot)
 						{
-							self.options.slot = slot 
+							self.options.slot = slot
 							self.update()
 						}
 					)
