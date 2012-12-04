@@ -53,6 +53,7 @@
 		'can/view/mustache'
 	,	'sigma/stock/controls/stream'
 	,	'sigma/stock/controls/stream/fixtures.js'
+	,	'sigma/stock/controls/stream/stream_adapter.js'
 	).then(
 		'sigma/stock/controls/lib/media.css'
 	,	'sigma/stock/controls/stream/stream.css'
@@ -78,7 +79,8 @@
 				}
 			,	{}
 			)
-		var stream_container = new
+			
+			var stream_container = new
 				Sigma.Hypermedia.Stream.Container(
 					$('#stream')
 				,	{

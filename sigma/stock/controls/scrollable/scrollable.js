@@ -100,7 +100,6 @@ steal(
 						.then(
 							function(slot)
 							{
-								console.log(slot)
 								self.options.slot = slot 
 								self.update()
 							}

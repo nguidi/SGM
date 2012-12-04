@@ -49,7 +49,7 @@ Sigma.HypermediaControl(
 					)
 				}
 			)
-
+			
 			return element
 		}
 
@@ -89,6 +89,7 @@ Sigma.HypermediaControl(
 					)
 				}
 			)
+			console.log(data.attr('hovercard'))
 
 			return	element
 		}
