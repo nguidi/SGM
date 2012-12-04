@@ -2,10 +2,10 @@ steal(
 	'can'
 ,	'underscore'
 ,	'sigma/lib'
+,	'sigma/fixtures'
 ).then(
 	function()
 	{
-         NS('Sigma.fixtures')
 		can.Construct(
 			'Sigma.fixtures.store'
 		,	{

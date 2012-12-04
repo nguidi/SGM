@@ -2,7 +2,7 @@ steal(
 	'sigma/model/hal.js'
 ,	'sigma/lib' // /fixtures.js'
 ,	'sigma/hal/store.js'
-,	'sgm-nodejs/spec-transform.js'
+,	'sigma/model/json2hal.js'
 ).then(
 	function()
 	{
@@ -55,7 +55,7 @@ steal(
 						function()
 						{
 						var	transformers
-						=	spec_transform.make_transformers(_,store,spec)
+						=	Sigma.fixtures.transformers(store,spec)
 						,	provincia
 						=	transformers['/provincias'](this.prefetchs['/provincias'][0])
 							ok(provincia,'OK')

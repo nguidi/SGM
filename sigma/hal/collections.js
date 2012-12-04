@@ -1,15 +1,14 @@
 steal(
  'can'
-,	'can/util/fixture'
 ).then(
 	'sigma/lib/parseuri.js'
 ,	'sigma/lib/uritemplates.js'
 ,	'sigma/lib/hal'
 ,	'sigma/hal/hal_builder.js'
+,	'sigma/fixtures'
 ).then(
 	function()
 	{
-         NS('Sigma.fixtures')
 		can.Construct(
 			'Sigma.fixtures.collection'
 		,	{

@@ -1,5 +1,6 @@
 steal(
- 'sigma/lib/hal'
+	'sigma/lib/hal'
+,	'sigma/fixtures'
 ,	'underscore'
 ,	'can'
 ).then(	'sigma/hal/hal_builder.js'
