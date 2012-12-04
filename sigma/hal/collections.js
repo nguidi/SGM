@@ -1,9 +1,11 @@
 steal(
+ 'can'
+).then(
 	'sigma/lib/parseuri.js'
 ,	'sigma/lib/uritemplates.js'
 ,	'sigma/lib/hal'
 ,	'sigma/hal/hal_builder.js'
-,	'sigma/hal/store.js'
+,	'sigma/fixtures'
 ).then(
 	function()
 	{
@@ -22,8 +24,7 @@ steal(
 					=	parseUri(uri)
 					,	name
 					=	data.directory.match(/\/?([^\/]*)/)[1]
-					return	Sigma.fixtures
-						.store.get(this.defaults.assets_path+'/'+name+this.defaults.ext)
+					return	can.ajax(this.defaults.assets_path+'/'+name+this.defaults.ext)
 						.pipe(
 							function(results)
 							{
