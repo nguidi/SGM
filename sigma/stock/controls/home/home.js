@@ -2,7 +2,6 @@ steal(
 	'sigma/lib'
 ,	'sigma/lib/hypermedia.js'
 ,	'sigma/util'
-,	'sigma/lib/style.js'
 ).then(
 	function() {
 		Sigma.HypermediaControl(
@@ -10,7 +9,7 @@ steal(
 		,	{
 				defaults:{
 					target: 'Root'
-				,	view: 'views/init.ejs'
+				,	view: '//stock/views/home/init.ejs'
 				}
 			}
 		,	{}

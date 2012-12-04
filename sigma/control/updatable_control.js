@@ -3,15 +3,13 @@ steal(	'sigma/lib'
 ).then(
 	function()
 	{
-		can.view.ejs('loading_ejs', 'cargando...');
-		can.view.ejs('empty_ejs', 'nada.');
 		can.Control(
 			'Sigma.UpdatableControl'
 		,	{
 				defaults:{
 						view: ''
-					,	loading: 'loading_ejs'
-					,	empty: 'empty_ejs'
+					,	loading: '//stock/views/common/loading.ejs'
+					,	empty: '//stock/views/common/empty.ejs'
 					,	slot: false
 					,	container: false
 					,	target: false
@@ -26,6 +24,26 @@ steal(	'sigma/lib'
 		,	{
 				init:	function(el,options)
 					{
+						//this._super.apply(this,arguments)
+						can.each(
+							this.options
+						,	this.proxy(
+								function(val,prop)
+								{
+									if(/^view/.test(prop))
+										this.options[prop]=steal.idToUri(val).path
+								}
+							)
+						)
+						can.each(
+							['loading','empty']
+						,	this.proxy(
+								function(what)
+								{
+									this.options[what]=steal.idToUri(this.options[what]).path
+								}
+							)
+						)
 						if(!this.options.container)
 							throw 'Control must have an "container" property'
 						if(!this.options.target)

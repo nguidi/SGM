@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Stream Mustache Demo</title>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div id="detailsContainer"></div></br>
+	<div id="replyContainer"></div></br>
+	<div id="drillDownContainer"></div>
+    	<script type='text/javascript' src='../../../../steal/steal.js'></script>
+</body>
+</html>
+
+<script type="text/javascript">
+
+	steal(
+		'sigma/stock/controls/lib'
+	,	'can/view/mustache'
+	).then(
+		'sigma/stock/controls/details/adapters.js'
+	,	'sigma/stock/controls/details/fixtures.js'
+	).then(
+		'sigma/stock/controls/details/details.js'
+	,	'sigma/stock/controls/details/drilldown.js'
+	,	'sigma/stock/controls/details/comments.js'
+	,	'sigma/lib/style.js'
+	,	'sigma/stock/controls/details/all.css'
+	).then(
+
+		function()
+		{
+		
+			Sigma.HypermediaContainer(
+				'Sigma.Hypermedia.DetailsView.Container'
+			,	{
+					defaults:
+					{
+						media_types:
+						{
+							'details':
+							{
+								Handler: Sigma.Hypermedia.Details
+							,	options:
+								{
+									target: 'details'
+								// enlace a symlink no funciona - dunno why
+								//,	view: '//sigma/stock/views/details/details.mustache'
+								,	view: '//sigma/stock/controls/details/views/details.mustache'
+								}
+							}
+						,	'drilldown':
+							{
+								Handler: Sigma.Hypermedia.DrillDown
+							,	options:
+								{
+									target: 'drilldown'
+								,	view_drilldown: '//sigma/stock/controls/details/views/drilldown.mustache'
+								,	view_breadcrumb: '//sigma/stock/controls/details/views/breadcrumb.mustache'
+								}
+							}
+						,	'reply':
+							{
+								Handler: Sigma.Hypermedia.Comments
+							,	options:
+								{
+									target: 'comments'
+								// enlace a symlink no funciona - dunno why
+								//,	view: '//sigma/stock/views/details/reply.mustache'
+								,	view: '//sigma/stock/controls/details/views/reply.mustache'
+								}
+							}
+						}
+					}
+				}
+			,	{
+				}
+			)
+
+			new Sigma.Hypermedia.DetailsView.Container(
+				$('#detailsContainer')
+			,	{
+					id:'Details'
+				,	target: 'Details'
+				,	slot: Sigma.Model.HAL.Resource.Details.getRoot(1)
+				}
+			)
+
+			new Sigma.Hypermedia.DetailsView.Container(
+				$('#replyContainer')
+			,	{
+					id:'Reply'
+				,	target: 'Reply'
+				,	slot: Sigma.Model.HAL.Resource.Comments.getRoot(1)
+				}
+			)
+
+			new Sigma.Hypermedia.DetailsView.Container(
+				$('#drillDownContainer')
+			,	{
+					id:'DrillDown'
+				,	target: 'DrillDown'
+				,	slot: Sigma.Model.HAL.Resource.DrillDown.getRoot('/bebidas')
+				}
+			)
+		}
+
+	)
+
+</script>
