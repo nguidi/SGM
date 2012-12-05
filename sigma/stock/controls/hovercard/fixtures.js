@@ -34,7 +34,7 @@ steal(
 								,	description: card[0].descripcion
 								,	img: card[0].img
 								}
-							,	'/'+card[0].owner
+							,	'/hovercard/'+card[0].owner
 							)
 				}
 

@@ -11,6 +11,7 @@ steal(
 				,	subitems_rel: false
 				,	actions_rel: false
 				,	hovercard_rel : false
+				,	handlers: false
 				}
 			,	{
 				getSubitems:function()
@@ -20,7 +21,7 @@ steal(
 					}
 			,	getHovercard:function()
 					{
-					return	this.constructor.subitems_rel
+					return	this.constructor.hovercard_rel
 						&&	this.embedded.attr(this.constructor.hovercard_rel)
 					}
 			,	getActions:function()
@@ -49,6 +50,10 @@ steal(
 					{
 					return	this.attr('description')
 					}
+			,	getHandler:function()
+					{
+					return	this.constructor.handlers
+					}
 			}
 		)
 
@@ -70,6 +75,15 @@ steal(
 				subitems_rel:'comments'
 			,	actions_rel: 'actions'
 			,	hovercard_rel: 'hovercard'
+			,	handlers: 
+				{
+					'hovercard' : 
+					{
+						control: 'Hovercard'
+					,	target: '.hovercard'
+					//,	view: '//sigma/stock/controls/hovercard/views/hovercard.mustache'
+					}
+				}
 			}
 		,	{}
 		)
@@ -79,6 +93,22 @@ steal(
 		,	{
 				actions_rel: 'actions'
 			,	hovercard_rel: 'hovercard'
+			,	handlers: 
+				{
+					'hovercard' : 
+					{
+						control: 'Hovercard'
+					,	target: '.hovercard'
+					//,	view: '//sigma/stock/controls/hovercard/views/hovercard.mustache'
+					}
+				}
+			}
+		,	{}
+		)
+
+		StreamAdapter(
+			'Sigma.Model.HAL.Hovercard'
+		,	{
 			}
 		,	{}
 		)
