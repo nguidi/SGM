@@ -8,7 +8,7 @@ steal(
 .then(
 	function()
 	{
-		can.Construct('Sigma.Media')
+         NS('Sigma.Media')
 	}
 )
 */

@@ -8,13 +8,14 @@ steal(
 			'Sigma.Controls.Scrollable'
 		,	{
 				defaults:{
-					view_more: '//sigma/stock/controls/scrollable/views/more.mustache'
+					view_more: '//stock/views/scrollable/more.mustache'
 				,	view_content: false
 				}
 			}
 		,	{
 				init: function(element,options)
 				{
+					this._super.apply(this,arguments)
 					can.append(
 						this.element
 					,	can.$('<div class="content">')
@@ -23,7 +24,7 @@ steal(
 					can.append(
 						this.element
 					,	can.$('<div class="more">')
-					)					
+					)
 
 					can.append(
 						this.element
@@ -62,7 +63,7 @@ steal(
 					)
 				}
 
-			,	updateMore: function() 
+			,	updateMore: function()
 				{
 					this.element
 						.find('div.more')
@@ -85,7 +86,7 @@ steal(
 					.then(
 						function(slot)
 						{
-							self.options.slot = slot 
+							self.options.slot = slot
 							self.update()
 						}
 					)
