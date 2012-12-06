@@ -5,7 +5,7 @@ steal(
 ).then(
 	function() {
 		Sigma.HypermediaControl(
-			'Sigma.Controls.Paginable'
+			'Sigma.Controls.Pageable'
 		,	{
 				defaults:{
 					view_links: false

@@ -57,27 +57,27 @@
 	,	'can/view/mustache'
 	,	'sigma/fixtures'
 	).then(
-		'sigma/stock/controls/paginable'
-	,	'sigma/stock/controls/paginable/adapters.js'
+		'sigma/stock/controls/pageable'
+	,	'sigma/stock/controls/pageable/adapters.js'
 	).then(
 		'sigma/lib/style.js'
 	,	function()
 		{
 			Sigma.HypermediaContainer(
-				'Sigma.Hypermedia.Paginable.Container'
+				'Sigma.Hypermedia.Pageable.Container'
 			,	{
 					defaults:
 					{
 						media_types:
 						{
-							'paginable':
+							'pageable':
 							{
-								Handler: Sigma.Controls.Paginable
+								Handler: Sigma.Controls.Pageable
 							,	options:
 								{
 									target: 'paginable'
-								,	view_links: '//stock/views/paginable/links.mustache'
-								,	view_content: '//stock/views/paginable/content.mustache'
+								,	view_links: '//stock/views/pageable/links.mustache'
+								,	view_content: '//stock/views/pageable/content.mustache'
 								}
 							}
 						}
@@ -87,19 +87,29 @@
 				}
 			)
 
-			can.fixture('GET /pageable-scrollable.csv',steal.idToUri("//stock/fixtures/hal/pageable-scrollable.csv").path)
+			Sigma.fixtures.collection(
+				'Pageable'
+			,	{}
+			,	{}
+			)
+
+			Pageable.defaults 
+			= 	{
+					assets_path:'../../fixtures/data/json'
+				,	ext:'.json'
+				}
 
 			Sigma.fixtures.collection.pageable.getCollectionsFixturator(
-					Sigma.fixtures.collection.getCollection("/pageable-scrollable")
+					Pageable.getCollection("/pageable-scrollable")
 			).then(
 				function()
 				{
-					new Sigma.Hypermedia.Paginable.Container(
+					new Sigma.Hypermedia.Pageable.Container(
 						$('#paginableContainer')
 					,	{
-							id:'Paginable'
-						,	target: 'Paginable'
-						,	slot: 	Sigma.Model.HAL.Collection.getRoot('/pageable-scrollable?page=1&items-per-page=5','paginable')
+							id: 'Pageable'
+						,	target: 'Pageable'
+						,	slot: Sigma.Model.HAL.Collection.getRoot('/pageable-scrollable?page=1&items-per-page=5','pageable')
 						}
 					)
 				}
