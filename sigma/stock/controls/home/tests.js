@@ -5,8 +5,11 @@ steal(
 ).then(
 	function()
 	{
+		module(
+			"sigma/stock/controls"
+		)
 		test(
-			"TEST - Home"
+			"Home"
 		,	function()
 			{				
 				Sigma.HypermediaContainer(

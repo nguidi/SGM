@@ -5,8 +5,11 @@ steal(
 ).then(
 	function()
 	{
+		module(
+			"sigma/stock/controls"
+		)
 		test(
-			"TEST - Login"
+			"Login"
 		,	function()
 			{
 				the_root = Sigma.Model.HAL.Resource.getRoot('/api')

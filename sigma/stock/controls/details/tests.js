@@ -7,6 +7,9 @@ steal(
 ).then(
 	function()
 	{
+		module(
+			"sigma/stock/controls"
+		)
 		test(
 			"Vista Detalle - Details"
 		,	function()

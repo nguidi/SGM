@@ -51,11 +51,12 @@
 <script type='text/javascript'>
 	steal(
 		'can/view/mustache'
-	,	'sigma/stock/controls/stream'
+	,	'sigma/fixtures'
+	).then(
+		'sigma/stock/controls/stream'
 	,	'sigma/stock/controls/stream/fixtures.js'
 	,	'sigma/stock/controls/stream/stream_adapter.js'
-	).then(
-		'sigma/stock/controls/lib/media.css'
+	,	'sigma/stock/controls/lib/media.css'
 	,	'sigma/stock/controls/stream/stream.css'
 	,	'sigma/lib/style.js'
 	).then(	function()
