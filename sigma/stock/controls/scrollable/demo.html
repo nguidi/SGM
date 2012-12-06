@@ -28,7 +28,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="paginableContainer" class="container span7"></div>
+	<div id="scrollableContainer" class="container span7"></div>
     	<script type='text/javascript' src='../../../../steal/steal.js'></script>
     	<style type="text/css">
 		body {
@@ -76,19 +76,28 @@
 				}
 			)
 
-			can.fixture('GET /pageable-scrollable.csv',steal.idToUri("//stock/fixtures/hal/pageable-scrollable.csv").path)
-			Sigma.fixtures.collection.defaults.assets_path = 'no da bola a esto'
+			Sigma.fixtures.collection(
+				'Scrollable'
+			,	{}
+			,	{}
+			)
+
+			Scrollable.defaults 
+			= 	{
+					assets_path:'../../fixtures/data/json'
+				,	ext:'.json'
+				}
 
 			Sigma.fixtures.collection.scrollable.getCollectionsFixturator(
-					Sigma.fixtures.collection.getCollection("/pageable-scrollable")
+					Scrollable.getCollection("/pageable-scrollable")
 			).then(
 				function()
 				{
 					new Sigma.Hypermedia.Scrollable.Container(
-						$('#paginableContainer')
+						$('#scrollableContainer')
 					,	{
-							id:'Paginable'
-						,	target: 'Paginable'
+							id:'Scrollable'
+						,	target: 'Scrollable'
 						,	slot: 	Sigma.Model.HAL.Collection.getRoot('/pageable-scrollable?page=1&items-per-page=5','scrollable')
 						}
 					)
