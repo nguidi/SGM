@@ -7,7 +7,7 @@ steal(
 			'Sigma.Controls.Hovercard'
 		,	{
 				defaults:{
-					view: '//sigma/stock/controls/hovercard/views/hovercard.mustache'
+					view: false
 				,	target: false
 				,	data : false
 				}

@@ -4,6 +4,22 @@ steal(
 ,	function()
 	{
 		can.fixture(
+			'GET /hovercardDemo'
+		,	function()
+			{
+				return 	new Sigma.fixtures
+						.hal_builder(
+							{
+								title: 'owner'
+							,	description: 'descripcion'
+							,	img: 'img'
+							}
+						,	'/hovercard/owner'
+						).get_document()
+			}
+		)
+
+		can.fixture(
 			'GET /posts'
 		,	function()
 			{

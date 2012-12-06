@@ -60,19 +60,19 @@
 	steal(
 		'sigma/stock/controls/lib'
 	,	'can/view/mustache'
-	,	'sigma/stock/controls/hovercard'
+	,	'sigma/fixtures'
+	).then(
+		'sigma/stock/controls/hovercard'
 	,	'sigma/stock/controls/stream'
 	,	'sigma/stock/controls/hovercard/fixtures.js'
 	,	'sigma/stock/controls/hovercard/adapters.js'
-	).then(
-		'sigma/stock/controls/lib/media.css'
+	,	'sigma/stock/controls/lib/media.css'
 	,	'sigma/stock/controls/stream/stream.css'
 	,	'sigma/lib/style.js'
 	).then(
 
 		function()
 		{
-		
 			Sigma.HypermediaContainer(
 				'Sigma.Hypermedia.Stream.Container'
 			,	{

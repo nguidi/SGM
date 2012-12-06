@@ -3,7 +3,7 @@ steal(
 ).then(
 	function()
 	{
-		var StreamAdapter
+		var HovercardAdapter
 		=	Sigma.Model.HAL.Resource(
 				{
 					align:'left'
@@ -57,7 +57,7 @@ steal(
 			}
 		)
 
-		StreamAdapter(
+		HovercardAdapter(
 			'Sigma.Model.HAL.Resource.Stream'
 		,	{
 				subitems_rel:'posts'
@@ -69,7 +69,7 @@ steal(
 		,	{}
 		)
 
-		StreamAdapter(
+		HovercardAdapter(
 			'Sigma.Model.HAL.Posts'
 		,	{
 				subitems_rel:'comments'
@@ -81,14 +81,14 @@ steal(
 					{
 						control: 'Hovercard'
 					,	target: '.hovercard'
-					//,	view: '//sigma/stock/controls/hovercard/views/hovercard.mustache'
+					,	view: '//sigma/stock/views/hovercard/hovercard.mustache'
 					}
 				}
 			}
 		,	{}
 		)
 
-		StreamAdapter(
+		HovercardAdapter(
 			'Sigma.Model.HAL.Comments'
 		,	{
 				actions_rel: 'actions'
@@ -99,16 +99,20 @@ steal(
 					{
 						control: 'Hovercard'
 					,	target: '.hovercard'
-					//,	view: '//sigma/stock/controls/hovercard/views/hovercard.mustache'
+					,	view: '//sigma/stock/views/hovercard/hovercard.mustache'
 					}
 				}
 			}
 		,	{}
 		)
 
-		StreamAdapter(
+		HovercardAdapter(
 			'Sigma.Model.HAL.Hovercard'
 		,	{
+			getRoot: function(url,rel)
+				{
+					return this.Fetch(url,rel)
+				}
 			}
 		,	{}
 		)
