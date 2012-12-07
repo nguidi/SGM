@@ -59,9 +59,9 @@ steal(
 						,	provincia
 						=	transformers['/provincias'](this.prefetchs['/provincias'][0])
 							ok(provincia,'OK')
-							equal(provincia.id,'BUE','provincia.id OK')
-							equal(provincia.institutions.length,8,'provincia.intitutions OK')
-							equal(provincia.institutions[0].id,'UDESA','provincia.intitutions embeded OK')
+							equal(provincia._links.self.href,'/provincias/BUE','provincia.id OK')
+							equal(provincia._embedded['/instituciones-univ'].length,8,'provincia.intitutions OK')
+							equal(provincia._embedded['/instituciones-univ'][0].id,'UDESA','provincia.intitutions embeded OK')
 							start()
 						}
 					)
