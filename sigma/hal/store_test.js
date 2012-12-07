@@ -7,8 +7,8 @@ steal(
 				setup:
 					function()
 					{
-						can.fixture('GET /provincias',steal.idToUri("//stock/fixtures/provincias.json").path)
-						can.fixture('GET /instituciones-univ',steal.idToUri("//stock/fixtures/instituciones-univ.json").path)
+						can.fixture('GET /provincias',steal.idToUri("//stock/fixtures/data/json/provincias.json").path)
+						can.fixture('GET /instituciones-univ',steal.idToUri("//stock/fixtures/data/json/instituciones-univ.json").path)
 					}
 			}
 		)

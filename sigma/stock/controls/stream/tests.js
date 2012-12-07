@@ -1,9 +1,13 @@
 steal(
 	'sigma/stock/controls/stream'
+,	'sigma/stock/controls/stream/stream_adapter.js'
 ,	'sigma/stock/controls/stream/fixtures.js'
 ).then(
 	function()
 	{
+		module(
+			"sigma/stock/controls"
+		)
 		test(
 			"Stream Hypermedia"
 		,	function()

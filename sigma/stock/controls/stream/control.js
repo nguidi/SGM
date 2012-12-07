@@ -49,7 +49,7 @@ Sigma.HypermediaControl(
 					)
 				}
 			)
-
+			
 			return element
 		}
 

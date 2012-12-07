@@ -51,10 +51,12 @@
 <script type='text/javascript'>
 	steal(
 		'can/view/mustache'
-	,	'sigma/stock/controls/stream'
-	,	'sigma/stock/controls/stream/fixtures.js'
+	,	'sigma/fixtures'
 	).then(
-		'sigma/stock/controls/lib/media.css'
+		'sigma/stock/controls/stream'
+	,	'sigma/stock/controls/stream/fixtures.js'
+	,	'sigma/stock/controls/stream/stream_adapter.js'
+	,	'sigma/stock/controls/lib/media.css'
 	,	'sigma/stock/controls/stream/stream.css'
 	,	'sigma/lib/style.js'
 	).then(	function()
@@ -78,7 +80,8 @@
 				}
 			,	{}
 			)
-		var stream_container = new
+			
+			var stream_container = new
 				Sigma.Hypermedia.Stream.Container(
 					$('#stream')
 				,	{

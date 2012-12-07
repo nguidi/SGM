@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="description" content="">
 	<meta name="author" content="Sigma-IT">
-	<title>SGM/Scrollable Demo</title>
+	<title>SGM/Hovercard Demo</title>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -21,21 +21,36 @@
 					<span class="icon-bar"></span>
 				</a>
 				<a class="brand" href="#">
-					<h1>Scrollable Demo</h1>
+					<h1>Hovercard Demo</h1>
 				</a>
 				<div id='home' class="nav-collapse" >
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="scrollableContainer" class="container span7"></div>
+	<div id="stream" class="span7"></div>
     	<script type='text/javascript' src='../../../../steal/steal.js'></script>
     	<style type="text/css">
 		body {
 			padding-top: 90px;
 			padding-bottom: 40px;
-			margin-bottom: 15px;
 		}
+		#home .container-fluid {
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 500px;
+		}
+
+		div.media-box {
+			border: 1px solid #DDD;
+			margin: 15px 0;
+			padding: 15px;
+		}
+
+		div.media-object {
+			margin: 15px 0;
+		}
+
 	</style>
 </body>
 </html>
@@ -47,62 +62,46 @@
 	,	'can/view/mustache'
 	,	'sigma/fixtures'
 	).then(
-		'sigma/stock/controls/scrollable'
-	,	'sigma/stock/controls/scrollable/adapters.js'
+		'sigma/stock/controls/hovercard'
+	,	'sigma/stock/controls/stream'
+	,	'sigma/stock/controls/hovercard/fixtures.js'
+	,	'sigma/stock/controls/hovercard/adapters.js'
+	,	'sigma/stock/controls/lib/media.css'
+	,	'sigma/stock/controls/stream/stream.css'
+	,	'sigma/lib/style.js'
 	).then(
-		'sigma/lib/style.js'
-	,	function()
+
+		function()
 		{
 			Sigma.HypermediaContainer(
-				'Sigma.Hypermedia.Scrollable.Container'
+				'Sigma.Hypermedia.Stream.Container'
 			,	{
 					defaults:
 					{
 						media_types:
 						{
-							'scrollable':
+							'comments':
 							{
-								Handler: Sigma.Controls.Scrollable
-							,	options:
-								{
-									target: 'scrollable'
-								,	view_content: '//sigma/stock/controls/scrollable/views/content.mustache'
+								Handler: Sigma.Hypermedia.Stream
+							,	options:{
+									target: 'comments'
 								}
 							}
 						}
 					}
 				}
-			,	{
-				}
-			)
-
-			Sigma.fixtures.collection(
-				'Scrollable'
-			,	{}
 			,	{}
 			)
-
-			Scrollable.defaults 
-			= 	{
-					assets_path:'../../fixtures/data/json'
-				,	ext:'.json'
-				}
-
-			Sigma.fixtures.collection.scrollable.getCollectionsFixturator(
-					Scrollable.getCollection("/pageable-scrollable")
-			).then(
-				function()
-				{
-					new Sigma.Hypermedia.Scrollable.Container(
-						$('#scrollableContainer')
-					,	{
-							id:'Scrollable'
-						,	target: 'Scrollable'
-						,	slot: 	Sigma.Model.HAL.Collection.getRoot('/pageable-scrollable?page=1&items-per-page=5','scrollable')
-						}
-					)
-				}
-			)
+			
+			var stream_container = new
+				Sigma.Hypermedia.Stream.Container(
+					$('#stream')
+				,	{
+						id:'Stream'
+					,	target: 'Stream'
+					,	slot: Sigma.Model.HAL.Resource.Stream.getRoot('comments')
+					}
+				)
 		}
 
 	)

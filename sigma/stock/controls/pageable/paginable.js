@@ -5,10 +5,10 @@ steal(
 ).then(
 	function() {
 		Sigma.HypermediaControl(
-			'Sigma.Controls.Scrollable'
+			'Sigma.Controls.Pageable'
 		,	{
 				defaults:{
-					view_more: '//stock/views/scrollable/more.mustache'
+					view_links: false
 				,	view_content: false
 				}
 			}
@@ -23,7 +23,7 @@ steal(
 
 					can.append(
 						this.element
-					,	can.$('<div class="more">')
+					,	can.$('<div class="links">')
 					)
 
 					can.append(
@@ -37,9 +37,9 @@ steal(
 
 					can.append(
 						this.element
-							.find('div.more')
+							.find('div.links')
 					,	can.view(
-							this.options.view_more
+							this.options.view_links
 						,	this.options.slot
 						)
 					)
@@ -48,11 +48,15 @@ steal(
 			,	update: function()
 				{
 					this.updateContent()
-					this.updateMore()
+					this.updateLinks()
 				}
 
 			, 	updateContent: function ()
 				{
+					this.element
+						.find('div.content')
+						.empty()
+
 					can.append(
 						this.element
 							.find('div.content')
@@ -63,26 +67,48 @@ steal(
 					)
 				}
 
-			,	updateMore: function()
+			,	updateLinks: function()
 				{
 					this.element
-						.find('div.more')
+						.find('div.links')
 						.empty()
 
 					can.append(
 						this.element
-							.find('div.more')
+							.find('div.links')
 					,	can.view(
-							this.options.view_more
+							this.options.view_links
 						,	this.options.slot
 						)
 					)
+
+					if (this.options.slot.attr('prev'))
+						this.element
+							.find('ul.paginable')
+							.find('li.previous')
+							.removeClass('disabled')
+					else
+						this.element
+							.find('ul.paginable')
+							.find('li.previous')
+							.addClass('disabled')
+
+				        if (this.options.slot.attr('next'))
+						this.element
+							.find('ul.paginable')
+							.find('li.next')
+							.removeClass('disabled')
+					else
+						this.element
+							.find('ul.paginable')
+							.find('li.next')
+							.addClass('disabled')
 			}
 
-			,	'button.more click' : function(element,event)
+			,	'ul.paginable li:not(".disabled") click' : function(element,event)
 				{
 					var self = this
-					Sigma.Model.HAL.Collection.getRoot(element.attr('scroll-href'),'scrollable')
+					Sigma.Model.HAL.Collection.getRoot(element.attr('href'),'paginable')
 					.then(
 						function(slot)
 						{
@@ -90,22 +116,6 @@ steal(
 							self.update()
 						}
 					)
-				}
-
-			,	'{window} scroll': function(el,ev)
-				{
-					if (can.$(el).height() + can.$(el).scrollTop() == can.$(document).height() && this.options.slot.attr('more'))
-					{
-						var self = this
-						Sigma.Model.HAL.Collection.getRoot(self.options.slot.attr('more').attr('href'),'scrollable')
-						.then(
-							function(slot)
-							{
-								self.options.slot = slot 
-								self.update()
-							}
-						)
-					}
 				}
 			}
 		)
