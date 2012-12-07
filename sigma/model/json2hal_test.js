@@ -22,49 +22,31 @@ steal(
 		,	function()
 			{
 				stop();
-				var	spec
-				=	{
-						"/provincias":
-							{
-								"institutions":
-										{
-											"embeded":"/instituciones-univ"
-										,	"embeded_key":"provincia"
-										}
-							}
-					,	"/instituciones-univ":
-							{
-								"provincia":
-									{
-										"key":"provincia"
-									,	"embeded":"/provincias"
-									,	"embeded_key":"id"
-									}
-							,	"provincia_link":
-									{
-										"key":"provincia"
-									,	"linked":"/provincias"
-									,	"linked_key":"id"
-									}
-							}
+				can.when(
+					new Sigma.fixtures
+						.store(
+							[
+								{name:'provincias',url:'/provincias'}
+							,	{name:'instituciones-univ',url:'/instituciones-univ'}
+							]
+						)
+				,		can.ajax(
+							'../sgm-nodejs/tools/test/specs/transforms.json'
+						)
+				).then(
+					function(store,spec)
+					{
+							var	transformers
+							=	Sigma.fixtures.transformers(store,spec[0])
+							,	provincia
+							=	transformers['provincias'](store.prefetchs.provincias[0])
+								ok(provincia,'OK')
+								equal(provincia._links.self.href,'provincias/BUE','provincia.id OK')
+								equal(provincia._embedded['instituciones-univ'].length,8,'provincia.intitutions OK')
+								equal(provincia._embedded['instituciones-univ'][0].id,'UDESA','provincia.intitutions embeded OK')
+								start()
 					}
-				,	store
-				=	new Sigma.fixtures
-					.store( ['/provincias','/instituciones-univ'])
-					store.then(
-						function()
-						{
-						var	transformers
-						=	Sigma.fixtures.transformers(store,spec)
-						,	provincia
-						=	transformers['/provincias'](this.prefetchs['/provincias'][0])
-							ok(provincia,'OK')
-							equal(provincia._links.self.href,'/provincias/BUE','provincia.id OK')
-							equal(provincia._embedded['/instituciones-univ'].length,8,'provincia.intitutions OK')
-							equal(provincia._embedded['/instituciones-univ'][0].id,'UDESA','provincia.intitutions embeded OK')
-							start()
-						}
-					)
+				)
 			}
 		)
 	}
