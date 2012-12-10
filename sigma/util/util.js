@@ -43,22 +43,29 @@ steal(
 							,	list[i]
 							)
 					}
-				return acc
+			return	acc
 			}
 		window.NS
 		=	function(namespace)
 			{
-				return	can
-					.reduce(
-						namespace.split('.')
-					,	function(parent,part)
-						{
-							parent[part]
-							=	parent[part] || {}
-						return	parent[part]
-						}
-					,	window
-					)
+			return	can
+				.reduce(
+					namespace.split('.')
+				,	function(parent,part)
+					{
+						parent[part]
+						=	parent[part] || {}
+					return	parent[part]
+					}
+				,	window
+				)
+			}
+		NS('Sigma.stock')
+		Sigma.stock
+		.views
+		=	function(path)
+			{
+			return	steal.idToUri(path).path
 			}
 	}
 )

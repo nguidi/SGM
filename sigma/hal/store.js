@@ -29,7 +29,7 @@ steal(
 						).then(
 							function()
 							{
-							self.deferred.resolveWith(self,arguments[0])
+							self.deferred.resolve(self)
 							}
 						)
 					}
@@ -58,15 +58,23 @@ steal(
 						)
 					}
 			,	get:
-					function(url)
+					function(what)
 					{
 					var	self
 					=	this
+					,	url
+					=	_.isString(what)
+							?what
+							:what.url
+					,	name
+					=	_.isString(what)
+							?what
+							:what.name
 					return	this._get_one(url)
 						.pipe(
 							function(data)
 							{
-								self.prefetchs[url]
+								self.prefetchs[name]
 								=	data
 							return	data
 							}
