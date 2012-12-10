@@ -45,7 +45,7 @@ steal(
 				
 				Scrollable.defaults 
 				= 	{
-						assets_path:'stock/fixtures/data/json'
+						assets_path:'//trabajando/SGM/sigma/stock/fixtures/data/json'
 					,	ext:'.json'
 					}
 
