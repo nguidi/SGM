@@ -46,7 +46,7 @@ steal(
 
 				Pageable.defaults 
 				= 	{
-						assets_path:'../fixtures/data/json'
+						assets_path:'stock/fixtures/data/json'
 					,	ext:'.json'
 					}
 				stop()
