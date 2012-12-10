@@ -1,6 +1,7 @@
 steal(
 	'sigma/lib/hal'
 ,	'underscore'
+,	'sigma/fixtures'
 ).then(
 	'sgm-nodejs/lib/hal_builder.js'
 ,	function()

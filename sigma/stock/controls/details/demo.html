@@ -1,21 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <title>Stream Mustache Demo</title>
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="author" content="Sigma-IT">
+	<title>SGM/Details Demo</title>
+	<script type='text/javascript' src="../../../../steal/steal.js"></script>
+	<style type="text/css">
+		body {
+			padding-top: 90px;
+			padding-bottom: 40px;
+		}
+		#home .container-fluid {
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 500px;
+		}
+		#root {
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 800px;
+		}
+
+	</style>
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 </head>
 <body>
-	<div id="detailsContainer"></div></br>
-	<div id="replyContainer"></div></br>
-	<div id="drillDownContainer"></div>
-    	<script type='text/javascript' src='../../../../steal/steal.js'></script>
-</body>
-</html>
-
-<script type="text/javascript">
+<div id="topbar" class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+			<a class="brand" href="#">
+				<h1>DetailsView Demo</h1>
+			</a>
+			<div id='home' class="nav-collapse" >
+			</div>
+		</div>
+	</div>
+</div>
+	<div id="detailsContainer" class="span9"></div>
+	<div id="replyContainer" class="span9"></div>
+	<div id="drillDownContainer" class="span9"></div>
+<script type='text/javascript'>
 
 	steal(
 		'sigma/stock/controls/lib'
@@ -47,9 +82,7 @@
 							,	options:
 								{
 									target: 'details'
-								// enlace a symlink no funciona - dunno why
-								//,	view: '//sigma/stock/views/details/details.mustache'
-								,	view: '//sigma/stock/controls/details/views/details.mustache'
+								,	view: '//sigma/stock/views/details/details.mustache'
 								}
 							}
 						,	'drilldown':
@@ -58,8 +91,8 @@
 							,	options:
 								{
 									target: 'drilldown'
-								,	view_drilldown: '//sigma/stock/controls/details/views/drilldown.mustache'
-								,	view_breadcrumb: '//sigma/stock/controls/details/views/breadcrumb.mustache'
+								,	view_drilldown: '//sigma/stock/views/details/drilldown.mustache'
+								,	view_breadcrumb: '//sigma/stock/views/details/breadcrumb.mustache'
 								}
 							}
 						,	'reply':
@@ -68,9 +101,7 @@
 							,	options:
 								{
 									target: 'comments'
-								// enlace a symlink no funciona - dunno why
-								//,	view: '//sigma/stock/views/details/reply.mustache'
-								,	view: '//sigma/stock/controls/details/views/reply.mustache'
+								,	view: '//sigma/stock/views/details/reply.mustache'
 								}
 							}
 						}
