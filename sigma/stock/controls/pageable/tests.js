@@ -44,11 +44,7 @@ steal(
 				,	{}
 				)
 
-				Pageable.defaults 
-				= 	{
-						assets_path:'//trabajando/SGM/sigma/stock/fixtures/data/json'
-					,	ext:'.json'
-					}
+				can.fixture('GET /pageable-scrollable',steal.idToUri("//stock/fixtures/data/json/pageable-scrollable.json").path)
 				stop()
 				Sigma.fixtures.collection.pageable.getCollectionsFixturator(
 						Pageable.getCollection("/pageable-scrollable")

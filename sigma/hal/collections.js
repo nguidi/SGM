@@ -12,19 +12,14 @@ steal(
 		can.Construct(
 			'Sigma.fixtures.collection'
 		,	{
-				defaults:
-					{
-						assets_path:'hal/fixtures'
-					,	ext:'.csv'
-					}
-			,	getCollection:
+				getCollection:
 					function(uri)
 					{
 					var	data
 					=	parseUri(uri)
 					,	name
 					=	data.directory.match(/\/?([^\/]*)/)[1]
-					return	can.ajax(this.defaults.assets_path+'/'+name+this.defaults.ext)
+					return	can.ajax(uri)
 						.pipe(
 							function(results)
 							{
