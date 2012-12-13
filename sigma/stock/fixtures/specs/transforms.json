@@ -1,33 +1,72 @@
 {
 	"provincias":
 		{
-			"embeded":
+			"storage":
 				{
-					"institutions":
-							{
-								"embeded":"instituciones-univ"
-							,	"embeded_key":"provincia"
-							}
+					"name":"provincias"
 				}
-		}
-,	"instituciones-univ":
-		{
-			"links":
+		,	"api":
 				{
-					"provincia":
+					"url":
 						{
-							"key":"provincia"
-						,	"linked":"provincias"
-						,	"linked_key":"id"
+							"base":"/api/data"
+						,	"path":"provincias"
+						}
+				,	"templates":
+						{
+							"find_one":"{+base}{/path,id}"
+						,	"query":"{+base}{?query*}"
 						}
 				}
-		,	"embeded":
+		,	"associations":
+				{
+					"institutions":
+						{
+							"type":"has-many"
+						,	"target":"institutions"
+						,	"target_key":"provincia"
+						,	"template":"{+base}{/path}{/id}/institutions"
+						,	"embeded":
+								{
+									"type":"list"
+								,	"options":
+										{
+											"type":"scrollable"
+										,	"current_page":"2"
+										,	"items_per_page":"3"
+										,	"collection_url":"/instituciones-univ"
+										}
+								}
+						}
+				}
+		}
+,	"institutions":
+		{
+			"storage":
+				{
+					"name":"instituciones-univ"
+				}
+		,	"api":
+				{
+					"url":
+						{
+							"base":"/api/data"
+						,	"path":"institutions"
+						}
+				,	"templates":
+						{
+							"find_one":"{+base}{/path,id}"
+						,	"query":"{+base}{?query*}"
+						}
+				}
+		,	"associations":
 				{
 					"provincia":
 						{
-							"key":"provincia"
-						,	"embeded":"provincias"
-						,	"embeded_key":"id"
+							"type":"has-one"
+						,	"target":"provincias"
+						,	"key":"provincia"
+						,	"embeded":"single"
 						}
 				}
 		}
