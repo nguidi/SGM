@@ -8,12 +8,14 @@ steal(	'sigma/lib'
 		,	{
 				defaults:{
 						view: ''
-					,	loading: '//stock/views/common/loading.ejs'
-					,	empty: '//stock/views/common/empty.ejs'
+					,	loading: '//stock/views/common/loading.mustache'
+					,	empty: '//stock/views/common/empty.mustache'
+					,	failed: '//stock/views/common/failed.mustache'
 					,	slot: false
 					,	container: false
 					,	target: false
 					}
+			,	rendered : false
 			,	setup:	function()
 					{
 					var	result=this._super.apply(this,arguments)
@@ -52,7 +54,7 @@ steal(	'sigma/lib'
 					}
 			,	update:	function(options)
 					{
-						this._super(options)
+						this._super(this.options)
 					var	data=this.options.slot
 						if(data && data.isComputed)
 							data=data()
@@ -72,6 +74,7 @@ steal(	'sigma/lib'
 								this._render_empty()
 							else
 							{
+								this.clean_rendered()
 								this.set_data(data)
 								this.on()
 								this._render_content(this.options.data)
@@ -80,45 +83,84 @@ steal(	'sigma/lib'
 			,	set_data:
 					function(data)
 					{
+						mio = this.options.data
 						this.options.data=
-							(data instanceof can.Observe.List)
-							?data
-							:(data instanceof can.Observe)
-								?data
-								:new can.Observe(data)
+							(data instanceof can.Observe) //funciona tanto para observe.list como para observe.
+								? data
+								: new can.Observe(data)
 					}
-			,	slot:
-					function(value)
+			,	clean_rendered:
+					function()
 					{
-						if(!value)
-						return	this.options.data
-						this.update(
+						var self = this
+						can.each(
+							['empty','loading','failed']
+						,	function()
 							{
-								slot: value
+								self.element
+									.find('div.uc-'+this)
+									.remove()
 							}
 						)
 					}
 			,	_render_loading:
 					function()
 					{
-						this.element.html(can.view(this.options.loading,{message:'Cargando...'}));
+						this.element
+							.append(
+								can.$('<div class="uc-loading">')
+									.html(
+										can.view(
+											this.options.loading
+										,	{
+												message : 'Cargando...'
+											}
+										)
+									)
+							)
 					}
 			,	_render_content:
 					function(data_to_render)
 					{
-						this.element.html(can.view(this.options.view,data_to_render));
+						this.element
+							.append(
+								can.view(
+									this.options.view
+								,	data_to_render
+								)
+							)
 					}
 			,	_render_empty:
 					function()
 					{
-						this.element.html(can.view(this.options.empty,{message:'nada...'}));
-						//this.element.empty()
+						this.element
+							.append(
+								can.$('<div class="uc-loading">')
+									.html(
+										can.view(
+											this.options.empty
+										,	{
+												message : 'nada...'
+											}
+										)
+									)
+							)
 					}
 			,	_render_failed:
 					function()
 					{
-						this.element.html(can.view(this.options.empty,{message:'failed...'}));
-						//this.element.empty()
+						this.element
+							.append(
+								can.$('<div class="uc-loading">')
+									.html(
+										can.view(
+											this.options.failed
+										,	{
+												message : 'failed...'
+											}
+										)
+									)
+							)
 					}
 			,	'{slot} change':
 					function(target, ev, newVal)

@@ -37,17 +37,27 @@ steal(	'sigma/lib'
 					{
 					return	this.containers[container_id]
 					}
+			,	registerChild:
+					function(conteiner_id,child)
+					{
+						if(this.containers[conteiner_id].children[child.options.id])
+							throw can.sub('Container Child "{id}" already registered',child.options)
+						this.containers[conteiner_id].children[child.options.id] = child
+					}
 			,	registerContainer:
 					function(container)
 					{
 						if(this.containers[container.options.id])
-							throw can.sub('Container "{id}" already registered',container)
+							throw can.sub('Container "{id}" already registered',container.options)
+						if(container.options.parent && this.containers[container.options.parent])
+							this.registerChild(container.options.parent,container)
 						this.containers[container.options.id]=container
 					}
 			}
 		,	{
 				init:	function(el,options)
 					{
+						this.children = new Object()
 						if(!options.id)
 							throw 'Container must have an "id" property'
 						this.constructor.registerContainer(this)
@@ -88,6 +98,18 @@ steal(	'sigma/lib'
 								this.proxy(this.options.render.empty,'')
 							}
 
+					}
+			,	_parent: 
+					function()
+					{
+						return 	this.options.parent 
+						&& 	this.constructor.containers[this.options.parent]
+					}
+			,	_children:
+					function()
+					{
+						return 	!can.isEmptyObject(this.children) 
+						&& 	this.children
 					}
 			,	set_resource:
 					function(resource)
@@ -137,7 +159,7 @@ steal(	'sigma/lib'
 					var	self_rel=this.getRelationHandler(resource_to_render)
 						if(this.container_element)
 							this.container_element.remove()
-						this.container_element=	$('<div>').appendTo(this.element)
+						this.container_element = this.element
 						new	self_rel.Handler(
 								this.container_element
 							,	can.extend(
