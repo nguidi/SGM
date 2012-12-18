@@ -1,16 +1,20 @@
 Sigma.HypermediaControl(
 	'Sigma.Hypermedia.Stream'
 ,	{
-		defaults: {}
+		defaults: {
+			view_object: false
+		,	view_body: false
+		,	view_action: false
+		}
 	}
 ,	{
-		init: function(element,options)
+		_render_content: function(data)
 		{
 			var	existing=
-					element.hasClass('media')
-				||	element.hasClass('medias')
+					this.element.hasClass('media')
+				||	this.element.hasClass('medias')
 			,	is_list=
-					(this.options.slot.length > 0)
+					(data.length > 0)
 			,	tag=
 					is_list
 						?'<ul>'
@@ -21,7 +25,7 @@ Sigma.HypermediaControl(
 						:'media'
 				this.$media=
 					existing
-						?element
+						?this.element
 						:can.$(tag)
 							.addClass(klass)
 							.appendTo(this.element)
@@ -29,28 +33,38 @@ Sigma.HypermediaControl(
 					is_list
 						?'_render_medias'
 						:'_render_media'
-				](this.$media,this.options.slot)
+				](this.$media,data)
 		}
 
 	,	_render_medias:	function(element,slots)
 		{	
+			var self = this
+
 			can.each(
 				slots
 			,	function(media)
 				{
-					new Sigma.Hypermedia.Stream(
+					this.options.container.constructor(
 						can.$('<li>')
 							.addClass('media')
 							.addClass(media.identity())
 							.appendTo(element)
-					,	{ 
-							slot: media
+					,	{
+							id: self.generateMediaID(media)
+						,	parent: this.options.container.options.id
+						,	target: self.generateMediaID(media)
+						,	slot: media
 						}
 					)
 				}
 			)
 			
 			return element
+		}
+
+	,	generateContainerID: function(media)
+		{
+			return this.options.container.options.id+'.'+can.capitalize(media.id).replace(' ','')
 		}
 
 	,	_render_media:	function(element,data)
@@ -60,20 +74,20 @@ Sigma.HypermediaControl(
 					{
 						control: Sigma.Hypermedia.Object
 					,	class:'media-object'
-					//,	view: '//sigma/stock/views/stream/object.ejs'
-					,	view: '//sigma/stock/views/stream/object.mustache'
+					,	container: this.options.container
+					,	view: this.options.view_object
 					}
 				,	{
 						control: Sigma.Hypermedia.Body
 					,	class:'media-body'
-					//,	view: '//sigma/stock/views/stream/body.ejs'
-					,	view: '//sigma/stock/views/stream/body.mustache'
+					,	container: this.options.container
+					,	view: this.options.view_body
 					}
 				,	{
 						control: Sigma.Hypermedia.Actions
 					,	class:'media-actions'
-					//,	view: '//sigma/stock/views/stream/actions.ejs'
-					,	view: '//sigma/stock/views/stream/actions.mustache'
+					,	container: this.options.container
+					,	view: this.options.view_action
 					}
 				]
 			,	function(media)
@@ -83,8 +97,9 @@ Sigma.HypermediaControl(
 							.addClass(media.class)
 							.appendTo(element)
 					,	{
-							data : data
+							slot : data
 						,	view : media.view
+						,	container: media.container
 						}
 					)
 				}

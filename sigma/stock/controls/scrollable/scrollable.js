@@ -8,63 +8,54 @@ steal(
 			'Sigma.Controls.Scrollable'
 		,	{
 				defaults:{
-					view_more: '//stock/views/scrollable/more.mustache'
+					view_more: false
 				,	view_content: false
 				}
+			,	nextPage : false
+			,	lastPage: false
 			}
 		,	{
-				init: function(element,options)
+				_render_content: function(data)
 				{
-					this._super.apply(this,arguments)
+					var exists = 	this.element.find('div').hasClass('content') 
+					||		this.element.find('div').hasClass('more')
+
+					if (!exists) {
+						this._render_scrollable_content(data)
+						this._render_scrollable_more(data)
+					} 
+					this._update_content(data)					
+				}
+
+			,	_render_scrollable_content: function(data)
+				{
 					can.append(
 						this.element
 					,	can.$('<div class="content">')
 					)
+				}
 
+			,	_render_scrollable_more: function(data)
+				{
 					can.append(
 						this.element
 					,	can.$('<div class="more">')
 					)
+				}
+
+			,	_update_content: function (data)
+				{
+					this.lastPage = 1
 
 					can.append(
 						this.element
 							.find('div.content')
 					,	can.view(
 							this.options.view_content
-						,	this.options.slot
+						,	data
 						)
 					)
 
-					can.append(
-						this.element
-							.find('div.more')
-					,	can.view(
-							this.options.view_more
-						,	this.options.slot
-						)
-					)
-				}
-
-			,	update: function()
-				{
-					this.updateContent()
-					this.updateMore()
-				}
-
-			, 	updateContent: function ()
-				{
-					can.append(
-						this.element
-							.find('div.content')
-					,	can.view(
-							this.options.view_content
-						,	this.options.slot
-						)
-					)
-				}
-
-			,	updateMore: function()
-				{
 					this.element
 						.find('div.more')
 						.empty()
@@ -74,36 +65,43 @@ steal(
 							.find('div.more')
 					,	can.view(
 							this.options.view_more
-						,	this.options.slot
+						,	data
 						)
 					)
-			}
+				}
+
+			,	shouldILoadMore: function(el)
+				{
+
+					return	can.$(el).height() + can.$(el).scrollTop() == can.$(document).height() 
+					&& 	this.options.slot.attr('more')
+					//&&	this.nextPage == this.lastPage
+				}
 
 			,	'button.more click' : function(element,event)
 				{
-					var self = this
-					Sigma.Model.HAL.Collection.getRoot(element.attr('scroll-href'),'scrollable')
-					.then(
-						function(slot)
-						{
-							self.options.slot = slot
-							self.update()
-						}
-					)
+					// Tengo q tratarlo asi porque pierde el Resource Type 
+					// y el Rel entonces no me lo reconoce el HConteiner
+					this._update(
+						this.options.slot.constructor.getRoot(
+							this.options.slot.attr('more').href
+						,	this.options.slot.rel
+						)
+					)	
+					// this._update(element.data('more').fetch())
 				}
 
 			,	'{window} scroll': function(el,ev)
 				{
-					if (can.$(el).height() + can.$(el).scrollTop() == can.$(document).height() && this.options.slot.attr('more'))
+					console.log(el)
+					if (this.shouldILoadMore(el))
 					{
 						var self = this
-						Sigma.Model.HAL.Collection.getRoot(self.options.slot.attr('more').attr('href'),'scrollable')
-						.then(
-							function(slot)
-							{
-								self.options.slot = slot 
-								self.update()
-							}
+						self._update(
+							self.options.slot.constructor.getRoot(
+								this.options.slot.attr('more').href
+							,	self.options.slot.rel
+							)
 						)
 					}
 				}

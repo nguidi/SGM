@@ -80,8 +80,6 @@ steal(
 					'hovercard' : 
 					{
 						control: 'Hovercard'
-					,	target: '.hovercard'
-					,	view: '//sigma/stock/views/hovercard/hovercard.mustache'
 					}
 				}
 			}
@@ -99,7 +97,7 @@ steal(
 					{
 						control: 'Hovercard'
 					,	target: '.hovercard'
-					,	view: '//sigma/stock/views/hovercard/hovercard.mustache'
+					,	view: '//stock/views/hovercard/hovercard.mustache'
 					}
 				}
 			}

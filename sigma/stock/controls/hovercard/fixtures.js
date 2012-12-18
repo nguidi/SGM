@@ -49,6 +49,7 @@ steal(
 									title: card[0].owner
 								,	description: card[0].descripcion
 								,	img: card[0].img
+								,	rel : 'hovercard'
 								}
 							,	'/hovercard/'+card[0].owner
 							)
@@ -102,6 +103,7 @@ steal(
 								,	icon: comment.icon
 								,	description: comment.value
 								,	icon_align: (index % 2) ? 'right' : 'left'
+								,	rel: 'comment'
 								}
 							,	url+'/comments'+'/'+comment.owner
 							).link(
@@ -141,6 +143,7 @@ steal(
 								,	description: post.value
 								,	align: 'left'
 								,	icon_align: 'left'
+								,	rel: 'posts'
 								}
 							,	'/posts/'+post.owner
 							).link(

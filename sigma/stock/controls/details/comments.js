@@ -1,43 +1,32 @@
-steal(
-	'sigma/stock/controls/lib'
-).then(
-	function()
-	{
-		Sigma.HypermediaControl(
-			'Sigma.Hypermedia.Comments'
-		,	{
-				defaults: {
-					view : false
-				,	input_css: {
-						'float': 'left'
-					}
-				,	ul_css: {
-						'float':'right'
-					,	'list-style-type': 'none'
-					,	'margin-right': '5%'
-					}
-				}
-			}
-		,	{
-				init: function(element,options)
-				{
-					can.addClass(
-						element
-					,	'well media span5'
-					)	
+Sigma.HypermediaControl(
+	'Sigma.Hypermedia.Comments'
+,	{
+		defaults: {
+			view : false
+		}
+	}
+,	{
+		_render_content: function(data)
+		{
+			var exists = this.element.hasClass('comments') 
+			if (!exists)
+				can.addClass(
+					this.element
+				,	'comments well media span5'
+				)
+			this._render_resource(data)
+		}
 
-					can.append(
-						element
-					,	can.view(
-							this.options.view
-						,	this.options.slot
-						)
+	,	_render_resource: function(data)
+		{
+			if (this.options.view)
+				can.append(
+					this.element
+				,	can.view(
+						this.options.view
+					,	data
 					)
-					element.find('input').css(this.options.input_css)
-
-					element.find('ul').css(this.options.ul_css)
-				}
-			}
-		)
+				)
+		}
 	}
 )

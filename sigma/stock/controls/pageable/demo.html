@@ -56,6 +56,7 @@
 		'sigma/stock/controls/lib'
 	,	'can/view/mustache'
 	,	'sigma/fixtures'
+	,	'sigma/hal/collections.js'
 	).then(
 		'sigma/stock/controls/pageable'
 	,	'sigma/stock/controls/pageable/adapters.js'
@@ -85,22 +86,18 @@
 				}
 			,	{
 				}
+			
 			)
 
-			Sigma.fixtures.collection(
-				'Pageable'
-			,	{}
-			,	{}
+			can.fixture(
+				'GET /pageable-scrollable'
+			,	steal
+					.idToUri("//stock/fixtures/data/json/pageable-scrollable.json")
+					.path
 			)
-
-			Pageable.defaults 
-			= 	{
-					assets_path:'../../fixtures/data/json'
-				,	ext:'.json'
-				}
 
 			Sigma.fixtures.collection.pageable.getCollectionsFixturator(
-					Pageable.getCollection("/pageable-scrollable")
+				Sigma.fixtures.collection.getCollection("/pageable-scrollable")
 			).then(
 				function()
 				{
@@ -109,9 +106,9 @@
 					,	{
 							id: 'Pageable'
 						,	target: 'Pageable'
-						,	slot: Sigma.Model.HAL.Collection.getRoot('/pageable-scrollable?page=1&items-per-page=5','pageable')
+						,	slot: Sigma.Model.HAL.Collection.getRoot('/pageable-scrollable?items-per-page=5','pageable')
 						}
-					)
+					)					
 				}
 			)
 		}

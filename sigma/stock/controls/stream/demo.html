@@ -23,6 +23,15 @@
 			margin-right: auto;
 			max-width: 800px;
 		}
+		div.media-box {
+			border: 1px solid #DDD;
+			margin: 15px 0;
+			padding: 15px;
+		}
+
+		div.media-object {
+			margin: 15px 0;
+		}
 
 	</style>
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -61,6 +70,13 @@
 	,	'sigma/lib/style.js'
 	).then(	function()
 		{
+			var streamOptions = {
+				target: 'comments'
+			,	view_object : '//stock/views/stream/object.mustache'
+			,	view_body : '//stock/views/stream/body.mustache'
+			,	view_action : '//stock/views/stream/actions.mustache'	
+			}
+
 			Sigma.HypermediaContainer(
 				'Sigma.Hypermedia.Stream.Container'
 			,	{
@@ -71,9 +87,17 @@
 							'comments':
 							{
 								Handler: Sigma.Hypermedia.Stream
-							,	options:{
-									target: 'comments'
-								}
+							,	options: streamOptions
+							}
+						,	'posts':
+							{
+								Handler: Sigma.Hypermedia.Stream
+							,	options: streamOptions	
+							}
+						,	'comment':
+							{
+								Handler: Sigma.Hypermedia.Stream
+							,	options: streamOptions	
 							}
 						}
 					}

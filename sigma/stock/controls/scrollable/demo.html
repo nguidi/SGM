@@ -67,6 +67,7 @@
 								{
 									target: 'scrollable'
 								,	view_content: '//sigma/stock/controls/scrollable/views/content.mustache'
+								,	view_more: '//stock/views/scrollable/more.mustache'
 								}
 							}
 						}
@@ -76,20 +77,15 @@
 				}
 			)
 
-			Sigma.fixtures.collection(
-				'Scrollable'
-			,	{}
-			,	{}
+			can.fixture(
+				'GET /pageable-scrollable'
+			,	steal
+					.idToUri("//stock/fixtures/data/json/pageable-scrollable.json")
+					.path
 			)
 
-			Scrollable.defaults 
-			= 	{
-					assets_path:'../../fixtures/data/json'
-				,	ext:'.json'
-				}
-
 			Sigma.fixtures.collection.scrollable.getCollectionsFixturator(
-					Scrollable.getCollection("/pageable-scrollable")
+				Sigma.fixtures.collection.getCollection("/pageable-scrollable")
 			).then(
 				function()
 				{
@@ -98,7 +94,7 @@
 					,	{
 							id:'Scrollable'
 						,	target: 'Scrollable'
-						,	slot: 	Sigma.Model.HAL.Collection.getRoot('/pageable-scrollable?page=1&items-per-page=5','scrollable')
+						,	slot: Sigma.Model.HAL.Collection.getRoot('/pageable-scrollable?items-per-page=5','scrollable')
 						}
 					)
 				}

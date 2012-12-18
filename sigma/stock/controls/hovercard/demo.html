@@ -73,6 +73,13 @@
 
 		function()
 		{
+			var streamOptions = {
+				target: 'comments'
+			,	view_object : '//stock/views/stream/object.mustache'
+			,	view_body : '//stock/views/stream/body.mustache'
+			,	view_action : '//stock/views/stream/actions.mustache'	
+			}
+
 			Sigma.HypermediaContainer(
 				'Sigma.Hypermedia.Stream.Container'
 			,	{
@@ -83,8 +90,24 @@
 							'comments':
 							{
 								Handler: Sigma.Hypermedia.Stream
-							,	options:{
-									target: 'comments'
+							,	options: streamOptions
+							}
+						,	'posts':
+							{
+								Handler: Sigma.Hypermedia.Stream
+							,	options: streamOptions	
+							}
+						,	'comment':
+							{
+								Handler: Sigma.Hypermedia.Stream
+							,	options: streamOptions	
+							}
+						,	'hovercard':
+							{
+								Handler: Sigma.Controls.Hovercard
+							,	options: {
+									target: '.hovercard'
+								,	view: '//stock/views/hovercard/hovercard.mustache'
 								}
 							}
 						}
@@ -93,7 +116,7 @@
 			,	{}
 			)
 			
-			var stream_container = new
+			stream_container = new
 				Sigma.Hypermedia.Stream.Container(
 					$('#stream')
 				,	{

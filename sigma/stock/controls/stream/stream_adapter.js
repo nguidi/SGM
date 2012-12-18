@@ -67,6 +67,8 @@ steal(
 	,	{}
 	)
 
+	Sigma.Model.HAL.Resource.List( 'Sigma.Model.HAL.Posts.List',{},{})
+
 	StreamAdapter(
 		'Sigma.Model.HAL.Comments'
 	,	{
@@ -74,5 +76,7 @@ steal(
 		}
 	,	{}
 	)
+
+	Sigma.Model.HAL.Resource.List( 'Sigma.Model.HAL.Comments.List',{},{})
 	}
 )

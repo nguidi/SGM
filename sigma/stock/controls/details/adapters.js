@@ -8,7 +8,7 @@ steal(
 		,	{
 				getRoot: function(id)
 				{
-					return this.Fetch('/details/'+id,'details')
+					return this.Fetch('fixture/details/'+id,'details')
 				}
 			}
 		,	{}
@@ -20,7 +20,7 @@ steal(
 				actions_rel: 'actions'
 			,	getRoot: function(id)
 				{
-					return this.Fetch('/comments/'+id,'reply')
+					return this.Fetch('fixture/comments/'+id,'reply')
 				}
 			}
 		,	{

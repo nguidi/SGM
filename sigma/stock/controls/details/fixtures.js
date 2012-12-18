@@ -1,8 +1,7 @@
 steal(
 	'can/util/fixture'
 ,	'sigma/hal/hal_builder.js'
-).then(
-	function()
+,	function()
 	{		
 		var comments = can.map(
 			[1,2,3,4,5,6,7,8,9,10]
@@ -44,7 +43,7 @@ steal(
 		} 
 
 		can.fixture(
-			'GET /details/{id}'
+			'GET fixture/details/{id}'
 		,	function(data)
 			{	
 				return  new Sigma.fixtures
@@ -76,7 +75,7 @@ steal(
 		}
 
 		can.fixture(
-			'GET /comments/{id}'
+			'GET fixture/comments/{id}'
 		,	function(data)
 			{	
 				return  new Sigma.fixtures
@@ -95,7 +94,7 @@ steal(
 		)
 
 		can.fixture(
-			'GET /bebidas/conalcohol/fernet'
+			'GET fixture/bebidas/conalcohol/fernet'
 		,	function()
 			{
 				var genFernets = function(url)
@@ -118,28 +117,28 @@ steal(
 				return 	new Sigma.fixtures
 						.hal_builder(
 						{
-								href: '/bebidas/conalcohol/fernet'
+								href: 'fixture/bebidas/conalcohol/fernet'
 							,	label: 'Fernets'
 							,	divider: '/'
 							}
-						,	'/bebidas/conalcohol/fernet'
+						,	'fixture/bebidas/conalcohol/fernet'
 						).link(
 							{
 								'drilldown':
 								{
-									href:'/bebidas/conalcohol/fernet'
+									href:'fixture/bebidas/conalcohol/fernet'
 								}
 							}
 						).embedded(
 							{
-								'drilldown': genFernets('/bebidas/conalcohol/fernet/')
+								'drilldown': genFernets('fixture/bebidas/conalcohol/fernet/')
 							}
 						).get_document()
 			}
 		)
 
 		can.fixture(
-			'GET /bebidas/conalcohol/cerveza'
+			'GET fixture/bebidas/conalcohol/cerveza'
 		,	function()
 			{
 				var genCerveza = function(url)
@@ -162,28 +161,28 @@ steal(
 				return 	new Sigma.fixtures
 						.hal_builder(
 						{
-								href: '/bebidas/conalcohol/cerveza'
+								href: 'fixture/bebidas/conalcohol/cerveza'
 							,	label: 'Cerveza'
 							,	divider: '/'
 							}
-						,	'/bebidas/conalcohol/cerveza'
+						,	'fixture/bebidas/conalcohol/cerveza'
 						).link(
 							{
 								'drilldown':
 								{
-									href:'/bebidas/conalcohol/cerveza'
+									href:'fixture/bebidas/conalcohol/cerveza'
 								}
 							}
 						).embedded(
 							{
-								'drilldown': genCerveza('/bebidas/conalcohol/cerveza/')
+								'drilldown': genCerveza('fixture/bebidas/conalcohol/cerveza/')
 							}
 						).get_document()
 			}
 		)
 
 		can.fixture(
-			'GET /bebidas/conalcohol/gancia'
+			'GET fixture/bebidas/conalcohol/gancia'
 		,	function()
 			{
 				var genGancia = function(url)
@@ -206,28 +205,28 @@ steal(
 				return 	new Sigma.fixtures
 						.hal_builder(
 						{
-								href: '/bebidas/conalcohol/gancia'
+								href: 'fixture/bebidas/conalcohol/gancia'
 							,	label: 'Grancia'
 							,	divider: '/'
 							}
-						,	'/bebidas/conalcohol/gancia'
+						,	'fixture/bebidas/conalcohol/gancia'
 						).link(
 							{
 								'drilldown':
 								{
-									href:'/bebidas/conalcohol/gancia'
+									href:'fixture/bebidas/conalcohol/gancia'
 								}
 							}
 						).embedded(
 							{
-								'drilldown': genGancia('/bebidas/conalcohol/gancia/')
+								'drilldown': genGancia('fixture/bebidas/conalcohol/gancia/')
 							}
 						).get_document()
 			}
 		)
 
 		can.fixture(
-			'GET /bebidas/conalcohol'
+			'GET fixture/bebidas/conalcohol'
 		,	function()
 			{
 				var genConAlcohol = function(url)
@@ -250,28 +249,28 @@ steal(
 				return 	new Sigma.fixtures
 						.hal_builder(
 						{
-								href: '/bebidas/conalcohol'
+								href: 'fixture/bebidas/conalcohol'
 							,	label: 'Con Alcohol'
 							,	divider: '/'
 							}
-						,	'/bebidas/conalcohol'
+						,	'fixture/bebidas/conalcohol'
 						).link(
 							{
 								'drilldown':
 								{
-									href:'/bebidas/conalcohol'
+									href:'fixture/bebidas/conalcohol'
 								}
 							}
 						).embedded(
 							{
-								'drilldown': genConAlcohol('/bebidas/conalcohol/')
+								'drilldown': genConAlcohol('fixture/bebidas/conalcohol/')
 							}
 						).get_document()
 			}
 		)
 
 		can.fixture(
-			'GET /bebidas/sinalcohol'
+			'GET fixture/bebidas/sinalcohol'
 		,	function()
 			{
 				var genSinAlcohol = function(url)
@@ -294,28 +293,28 @@ steal(
 				return 	new Sigma.fixtures
 						.hal_builder(
 							{
-								href: '/bebidas/sinalcohol'
+								href: 'fixture/bebidas/sinalcohol'
 							,	label: 'Sin Alcohol'
 							,	divider: '/'
 							}
-						,	'/bebidas/sinalcohol'
+						,	'fixture/bebidas/sinalcohol'
 						).link(
 							{
 								'drilldown':
 								{
-									href:'/bebidas/sinalcohol'
+									href:'fixture/bebidas/sinalcohol'
 								}
 							}
 						).embedded(
 							{
-								'drilldown': genSinAlcohol('/bebidas/sinalcohol/')
+								'drilldown': genSinAlcohol('fixture/bebidas/sinalcohol/')
 							}
 						).get_document()
 			}
 		)
 
 		can.fixture(
-			'GET /bebidas'
+			'GET fixture/bebidas'
 		,	function()
 			{
 				var genBebidas = function()
@@ -329,9 +328,9 @@ steal(
 									{
 										label: desc
 									,	divider: '/'
-									,	href: '/bebidas/'+desc.replace(' ','').toLowerCase()
+									,	href: 'fixture/bebidas/'+desc.replace(' ','').toLowerCase()
 									}
-									,	'/bebidas/'+desc.replace(' ','').toLowerCase()
+									,	'fixture/bebidas/'+desc.replace(' ','').toLowerCase()
 									)
 						}
 					)
@@ -340,11 +339,11 @@ steal(
 				return 	new Sigma.fixtures
 						.hal_builder(
 							{
-								href: '/bebidas'
+								href: 'fixture/bebidas'
 							,	label: 'Bebidas'
 							,	divider: '/'
 							}
-						,	'/bebidas'
+						,	'fixture/bebidas'
 						).link(
 							{
 								'drilldown':
@@ -354,7 +353,7 @@ steal(
 							}
 						).embedded(
 							{
-								'drilldown': genBebidas('/bebidas')
+								'drilldown': genBebidas('fixture/bebidas')
 							}
 						).get_document()
 			}

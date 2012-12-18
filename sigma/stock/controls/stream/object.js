@@ -6,17 +6,17 @@ Sigma.HypermediaControl(
 		}
 	}
 ,	{
-		init: function(element,options)
+		_render_content: function(data)
 		{
-			var icon_align = (options.data.attr('icon_align')) ? options.data.attr('icon_align') : 'left'
+			var icon_align = (data.attr('icon_align')) ? data.attr('icon_align') : 'left'
 
-			element.addClass('pull-'+icon_align)
+			this.element.addClass('pull-'+icon_align)
 
 			can.append(
-				element
+				this.element
 			,	can.view(
 					this.options.view
-				,	this.options.data
+				,	data
 				)
 			)
 		}

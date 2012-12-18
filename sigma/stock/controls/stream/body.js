@@ -6,42 +6,72 @@ Sigma.HypermediaControl(
 		}
 	}
 ,	{
-		init: function(element,options)
+		_render_content: function(data)
 		{
-			element.addClass('media-box')
+			this.element.addClass('media-box')
 
 			can.append(
-				element
+				this.element
 			,	can.view(
 					this.options.view
-				,	this.options.data
+				,	data
 				)
 			)
 
+			var self = this
+
 			can.each(
-				options.data.attr('handler')
+				data.attr('handler')
 			,	function(handler,attr_rel)
 				{
-					new Sigma.Controls[handler.control](
-						element.find(handler.target).parent()
-					,	{
-							data : options.data.attr(attr_rel)
-						,	target : handler.target
-						,	view : handler.view 
-						}
-					)
+					if (Sigma.Controls[handler.control].instance() instanceof Sigma.HypermediaControl)
+						self.options.container.constructor(
+							self.element
+						,	{
+								id: self.generateContainerID(data.attr(attr_rel))
+							,	parent: self.options.container.options.id
+							,	target: self.generateContainerID(data.attr(attr_rel))
+							,	slot: data.attr(attr_rel)
+							}
+						)	
+					else
+						if (can.isFunction(Sigma.Controls[handler.control]))
+							new Sigma.Controls[handler.control](
+									self.element.find(handler.target).parent()
+								,	{
+										data : data.attr(attr_rel)
+									,	target : handler.target
+									,	view : handler.view 
+									}
+								)
 				}
 			)
 
-			if (options.data.attr('subitems') && options.data.attr('subitems').length > 0 ) {
-				new Sigma.Hypermedia.Stream(
-					element
-				,	{ 
-						slot: options.data.attr('subitems')
+			if (data.attr('subitems'))
+				can.each(
+					data.attr('subitems')
+				,	function(subitem)
+					{
+						self.options.container.constructor(
+							self.element
+						,	{
+								id: self.generateContainerID(subitem)
+							,	parent: self.options.container.options.id
+							,	target: self.generateContainerID(subitem)
+							,	slot: subitem
+							}
+						)
 					}
 				)
-			}
+		}
 
+	,	generateContainerID: function(item)
+		{
+			return 	this.options.container.options.id
+				+'.'+
+				can.capitalize(item.rel)
+				+'.'+
+				can.capitalize(item.id).replace(/\s/g,'')
 		}
 	}
 )

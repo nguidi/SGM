@@ -14,6 +14,8 @@ steal(
 					{
 						can.fixture('GET /provincias',steal.idToUri("//stock/fixtures/data/json/provincias.json").path)
 						can.fixture('GET /instituciones-univ',steal.idToUri("//stock/fixtures/data/json/instituciones-univ.json").path)
+						can.fixture('GET /transforms.json',steal.idToUri("//stock/fixtures/specs/transforms.json").path)
+						//can.fixture('GET /transforms.json',"../sgm-nodejs/tools/test/specs/transforms.json")
 					}
 			}
 		)
@@ -27,24 +29,24 @@ steal(
 						.store(
 							[
 								{name:'provincias',url:'/provincias'}
-							,	{name:'instituciones-univ',url:'/instituciones-univ'}
+							,	{name:'institutions',url:'/instituciones-univ'}
 							]
 						)
 				,		can.ajax(
-							'../sgm-nodejs/tools/test/specs/transforms.json'
+							'/transforms.json'
 						)
 				).then(
 					function(store,spec)
 					{
-							var	transformers
-							=	Sigma.fixtures.transformers(store,spec[0])
-							,	provincia
-							=	transformers['provincias'](store.prefetchs.provincias[0])
-								ok(provincia,'OK')
-								equal(provincia._links.self.href,'provincias/BUE','provincia.id OK')
-								equal(provincia._embedded['instituciones-univ'].length,8,'provincia.intitutions OK')
-								equal(provincia._embedded['instituciones-univ'][0].id,'UDESA','provincia.intitutions embeded OK')
-								start()
+					var	transformers
+					=	Sigma.fixtures.transformers(store,spec[0])
+					,	provincia
+					=	transformers['provincias'](store.prefetchs.provincias[0])
+						ok(provincia,'OK')
+						equal(provincia._links.self.href,'/api/data/provincias/BUE','provincia.id OK')
+						equal(provincia._embedded['institutions'].length,8,'provincia.intitutions OK')
+						equal(provincia._embedded['institutions'][0].id,'UDESA','provincia.intitutions embeded OK')
+						start()
 					}
 				)
 			}

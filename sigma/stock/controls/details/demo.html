@@ -55,11 +55,11 @@
 	steal(
 		'sigma/stock/controls/lib'
 	,	'can/view/mustache'
+	,	'sigma/fixtures'
 	).then(
 		'sigma/stock/controls/details/adapters.js'
 	,	'sigma/stock/controls/details/fixtures.js'
-	).then(
-		'sigma/stock/controls/details/details.js'
+	,	'sigma/stock/controls/details/details.js'
 	,	'sigma/stock/controls/details/drilldown.js'
 	,	'sigma/stock/controls/details/comments.js'
 	,	'sigma/lib/style.js'
@@ -82,7 +82,7 @@
 							,	options:
 								{
 									target: 'details'
-								,	view: '//sigma/stock/controls/details/views/details.mustache'
+								,	view: '//stock/views/details/details.mustache'
 								}
 							}
 						,	'drilldown':
@@ -91,8 +91,8 @@
 							,	options:
 								{
 									target: 'drilldown'
-								,	view_drilldown: '//sigma/stock/controls/details/views/drilldown.mustache'
-								,	view_breadcrumb: '//sigma/stock/controls/details/views/breadcrumb.mustache'
+								,	view_drilldown: '//stock/views/details/drilldown.mustache'
+								,	view_breadcrumb: '//stock/views/details/breadcrumb.mustache'
 								}
 							}
 						,	'reply':
@@ -101,7 +101,7 @@
 							,	options:
 								{
 									target: 'comments'
-								,	view: '//sigma/stock/controls/details/views/reply.mustache'
+								,	view: '//stock/views/details/reply.mustache'
 								}
 							}
 						}
@@ -134,7 +134,7 @@
 			,	{
 					id:'DrillDown'
 				,	target: 'DrillDown'
-				,	slot: Sigma.Model.HAL.Resource.DrillDown.getRoot('/bebidas')
+				,	slot: Sigma.Model.HAL.Resource.DrillDown.getRoot('fixture/bebidas')
 				}
 			)
 		}
