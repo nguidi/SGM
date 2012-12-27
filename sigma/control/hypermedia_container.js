@@ -123,11 +123,11 @@ steal(	'sigma/lib'
 						||	(resource instanceof Sigma.Model.HAL.Resource)
 						)
 							this.options.resource=resource
-						else
-						{
-							//this.options.resource=resource
-							throw	'Wrong resource type!!!'
-						}
+						// else
+						// {
+						// 	//this.options.resource=resource
+						// 	throw	'Wrong resource type!!!'
+						// }
 					}
 			,	getRelationHandler:
 					function(resource)
@@ -159,7 +159,7 @@ steal(	'sigma/lib'
 					var	self_rel=this.getRelationHandler(resource_to_render)
 						if(this.container_element)
 							this.container_element.remove()
-						this.container_element = this.element
+						this.container_element = $('<div>').appendTo(this.element)
 						new	self_rel.Handler(
 								this.container_element
 							,	can.extend(

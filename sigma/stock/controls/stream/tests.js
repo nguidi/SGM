@@ -15,6 +15,13 @@ steal(
 
 				var stream = can.$('<div id="streamContainer">')
 
+				var streamOptions = {
+					target: 'comments'
+				,	view_object : '//stock/views/stream/object.mustache'
+				,	view_body : '//stock/views/stream/body.mustache'
+				,	view_action : '//stock/views/stream/actions.mustache'	
+				}
+
 				Sigma.HypermediaContainer(
 					'Sigma.Hypermedia.Stream.Container'
 				,	{
@@ -25,35 +32,35 @@ steal(
 								'comments':
 								{
 									Handler: Sigma.Hypermedia.Stream
-								,	options:{
-										target: 'comments'
-									}
+								,	options: streamOptions
+								}
+							,	'posts':
+								{
+									Handler: Sigma.Hypermedia.Stream
+								,	options: streamOptions	
+								}
+							,	'comment':
+								{
+									Handler: Sigma.Hypermedia.Stream
+								,	options: streamOptions	
 								}
 							}
 						}
 					}
-				,	{
-					}
+				,	{}
 				)
-
-				var stream_container = new Sigma.Hypermedia.Stream.Container(
-					stream
-				,	{
-						id:'Stream'
-					,	target: 'Stream'
-					,	slot: Sigma.Model.HAL.Resource.Stream.getRoot()
-							.pipe(
-								function(raw)
-								{//solo para el caso de root hay que explicitar el rel (buscar algo mas consistente/elegante)
-									raw.rel='comments'
-								return	raw
-								}
-							)
-					}
-				)
+				
+				var stream_container = new
+					Sigma.Hypermedia.Stream.Container(
+						stream
+					,	{
+							id:'Stream'
+						,	target: 'Stream'
+						,	slot: Sigma.Model.HAL.Resource.Stream.getRoot('comments')
+						}
+					)
 
 				equal(stream_container.options.id,"Stream","ID Generated")
-
 
 				stop()
 				stream_container.options.slot
@@ -62,7 +69,7 @@ steal(
 						{
 							start()
 							equal(data.constructor.fullName,"Sigma.Model.HAL.Resource.Stream","Resource Generated")
-							equal(stream.find('div.media-body h4').length,10,"Stream Generated")
+							equal(stream.find('div.media-body h4').length,9,"Stream Generated")
 							equals(data.embedded.attr('posts.0').constructor.fullName,"Sigma.Model.HAL.Posts", "embedded type ok");
 							equals(data.embedded.attr('posts.0').embedded.attr('comments.0').constructor.fullName,"Sigma.Model.HAL.Comments", "embedded type ok");
 						}
