@@ -1,6 +1,5 @@
 steal(
-	'sigma/lib'
-,	'sigma/lib/hypermedia.js'
+	'sigma/stock/controls/lib'
 ,	'sigma/hal/collections.js'
 ).then(
 	function() {
