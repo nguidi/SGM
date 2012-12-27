@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="author" content="Sigma-IT">
+	<title>SGM/Local Menu Demo</title>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div id="topbar" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand" href="#">
+					<h1>Local Menu Demo</h1>
+				</a>
+				<div id='home' class="nav-collapse" >
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="menu" class="span4"></div>
+	<div id="content" class="span8"></div>
+    	<script type='text/javascript' src='../../../../steal/steal.js'></script>
+    	<style type="text/css">
+		body {
+			padding-top: 90px;
+			padding-bottom: 40px;
+		}
+		#home .container-fluid {
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 500px;
+		}
+
+		div.media-box {
+			border: 1px solid #DDD;
+			margin: 15px 0;
+			padding: 15px;
+		}
+
+		div.media-object {
+			margin: 15px 0;
+		}
+
+	</style>
+</body>
+</html>
+
+<script type="text/javascript">
+
+	steal(
+		'sigma/stock/controls/lib'
+	,	'can/view/mustache'
+	,	'sigma/fixtures'
+	).then(
+		'sigma/stock/controls/local_menu'
+	,	'sigma/stock/controls/local_menu/fixtures.js'
+	,	'sigma/stock/controls/lib/media.css'
+	,	'sigma/stock/controls/local_menu/local_menu.css'
+	,	'sigma/lib/style.js'
+	).then(
+		function()
+		{
+			Sigma.HypermediaContainer(
+				'Sigma.Hypermedia.Menu.Container'
+			,	{
+					defaults:
+					{
+						media_types:
+						{
+							'menu':
+							{
+								Handler: Sigma.Controls.LocalMenu
+							,	options: 
+								{
+									view: '//stock/views/local_menu/init.mustache'
+								,	target_content: 'Content'
+								}
+							}
+						}
+					}
+				}
+			,	{}
+			)
+			Sigma.HypermediaContainer(
+				'Sigma.Hypermedia.Content.Container'
+			,	{
+					defaults:
+					{
+						'default_media_type':
+						{
+							Handler:Sigma.HypermediaControl
+						,	options:{
+								target: 'Content'
+							}
+						}
+					}
+				}
+			,	{}
+			)
+			
+			new Sigma.Hypermedia.Menu.Container(
+				$('#menu')
+			,	{
+					id:'Menu'
+				,	slot: Sigma.Model.HAL.Resource.getRoot('/api/localmenu','menu')
+				}
+			)
+
+			new Sigma.Hypermedia.Content.Container(
+				$('#content')
+			,	{
+					id:'Content'
+				,	target: 'Menu'
+				}
+			)
+		}
+
+	)
+</script>
