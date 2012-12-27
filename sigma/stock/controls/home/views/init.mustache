@@ -1,0 +1,47 @@
+<div class="topbar navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="#">
+				<h1>
+					{{title}}
+				</h1>
+			</a>
+			<div id="home" class="nav-collapse" >
+				<ul class="nav">
+					{{#applications}}
+						<li>
+							<a class="browseable" {{data 'application'}}>
+								<h4>
+									<i class="icon-{{icon}}"></i>
+									{{title}}
+								</h4>
+							</a>
+						</li>
+					{{/applications}}
+				</ul>
+			</div>
+			<div id="session">		
+				<div class="media">
+					<h1>
+						<span class="pull-right media-object icon-user" href="{{profile}}"></span>
+					</h1>
+					<div class="media-body pull-right user-dropdown">
+						<a class="btn options-toggle">
+							{{username}}
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							{{#dropdown}}
+								<li>
+									<a class="dropdown-browseable" {{data 'menu'}}>
+										{{title}}
+									</a>
+								</li>
+							{{/dropdown}}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

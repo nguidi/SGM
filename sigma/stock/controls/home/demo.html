@@ -31,36 +31,22 @@
 	<![endif]-->
 </head>
 <body>
-<div id="topbar" class="navbar navbar-fixed-top">
-	<div class="navbar-inner">
-		<div class="container-fluid">
-			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</a>
-			<a class="brand" href="#">
-				<h1>Home Demo</h1>
-			</a>
-			<div id='home' class="nav-collapse" >
-			</div>
-		</div>
-	</div>
-</div>
 	<div id="session"></div>
 	<div id="root"></div>
+	<div id="content"></div>
 <script type='text/javascript'>
 	steal(
 		'sigma/stock/controls/lib'
+	,	'can/view/mustache'
+	,	'sigma/fixtures'
 	).then(
 		'sigma/stock/controls/home/fixtures.js'
-	).then(
-		'sigma/stock/controls/home'
+	,	'sigma/stock/controls/home'
 	,	'sigma/stock/controls/lib/media.css'
 	,	'sigma/lib/style.js'
-	).then(	function()
+	).then(
+		function()
 		{
-			the_root=Sigma.Model.HAL.Resource.getRoot('/api/jperez','profile')
 			Sigma.HypermediaContainer(
 				'HAL.Container'
 			,	{
@@ -71,16 +57,35 @@
 								'profile':{
 										Handler:Sigma.Controls.Home
 									,	options:{
-											target: 'Root'
-										,	view: '//stock/views/home/init.ejs'
+											target_content: 'Content'
+										,	view: '//stock/views/home/init.mustache'
 										}
 									}
 							}
-						,	'default_media_type':{
+						}
+				}
+			,	{
+				}
+			)
+
+			new	HAL.Container(
+				$('#root')
+			,	{
+					id:'Root'
+				,	slot:Sigma.Model.HAL.Resource.getRoot('/api/jperez','profile')
+				}
+			)
+
+
+			Sigma.HypermediaContainer(
+				'HAL.Content.Container'
+			,	{
+					defaults:
+						{
+							'default_media_type':{
 										Handler:Sigma.HypermediaControl
 									,	options:{
-											target: 'Root'
-										//,	view: 'homeEjs'
+											target: 'Content'
 										}
 									}
 						}
@@ -88,14 +93,14 @@
 			,	{
 				}
 			)
-		var	root_container	=new
-				HAL.Container(
-					$('#home')
-				,	{
-						id:'Root'
-					,	slot:the_root
-					}
-				)
+			
+			new	HAL.Content.Container(
+				$('#content')
+			,	{
+					id:'Content'
+				,	target: 'Content'
+				}
+			)
 		}
 	)
 </script>
