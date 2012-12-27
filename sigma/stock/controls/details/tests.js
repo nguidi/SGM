@@ -1,9 +1,14 @@
 steal(
-	'sigma/stock/controls/details/details.js'
+	'sigma/stock/controls/lib'
+,	'can/view/mustache'
+,	'sigma/fixtures'
+).then(
+	'sigma/stock/controls/details/adapters.js'
+,	'sigma/stock/controls/details/fixtures.js'
+,	'sigma/stock/controls/details/details.js'
 ,	'sigma/stock/controls/details/drilldown.js'
 ,	'sigma/stock/controls/details/comments.js'
-,	'sigma/stock/controls/details/adapters.js'
-,	'sigma/stock/controls/details/fixtures.js'
+
 ).then(
 	function()
 	{
@@ -27,9 +32,7 @@ steal(
 								,	options:
 									{
 										target: 'details'
-									// enlace a symlink no funciona - dunno why
-									//,	view: '//sigma/stock/views/details/details.mustache'
-									,	view: '//sigma/stock/controls/details/views/details.mustache'
+									,	view: '//stock/views/details/details.mustache'
 									}
 								}
 							,	'drilldown':
@@ -38,8 +41,8 @@ steal(
 								,	options:
 									{
 										target: 'drilldown'
-									,	view_drilldown: '//sigma/stock/controls/details/views/drilldown.mustache'
-									,	view_breadcrumb: '//sigma/stock/controls/details/views/breadcrumb.mustache'
+									,	view_drilldown: '//stock/views/details/drilldown.mustache'
+									,	view_breadcrumb: '//stock/views/details/breadcrumb.mustache'
 									}
 								}
 							,	'reply':
@@ -48,9 +51,7 @@ steal(
 								,	options:
 									{
 										target: 'comments'
-									// enlace a symlink no funciona - dunno why
-									//,	view: '//sigma/stock/views/details/reply.mustache'
-									,	view: '//sigma/stock/controls/details/views/reply.mustache'
+									,	view: '//stock/views/details/reply.mustache'
 									}
 								}
 							}
@@ -73,7 +74,7 @@ steal(
 
 				var comments = can.$('<div id="replyContainer">')
 
-				var comments_container =  new Sigma.Hypermedia.DetailsView.Container(
+				var comments_container = new Sigma.Hypermedia.DetailsView.Container(
 					comments
 				,	{
 						id:'Reply'
@@ -84,15 +85,15 @@ steal(
 
 				var drilldown = can.$('<div id="drillDownContainer">')
 
-				var drilldown_container =  new Sigma.Hypermedia.DetailsView.Container(
+				var drilldown_container = new Sigma.Hypermedia.DetailsView.Container(
 					drilldown
 				,	{
 						id:'DrillDown'
 					,	target: 'DrillDown'
-					,	slot: Sigma.Model.HAL.Resource.DrillDown.getRoot('/bebidas')
+					,	slot: Sigma.Model.HAL.Resource.DrillDown.getRoot('fixture/bebidas')
 					}
 				)
-
+				
 				//TESTs
 
 				stop()
