@@ -20,7 +20,7 @@ steal(
 		)
 
 		can.fixture(
-			'GET /posts'
+			'GET /hposts'
 		,	function()
 			{
 			var 	genHovercard
@@ -108,7 +108,7 @@ steal(
 							,	url+'/comments'+'/'+comment.owner
 							).link(
 								{
-									'actions': genActions(url+'/comments'+'/'+comment.owner)
+									'hactions': genActions(url+'/comments'+'/'+comment.owner)
 								,	'hovercard': 
 									{
 										href: url+'/comments'+'/'+comment.owner+'/hovercard'
@@ -148,11 +148,11 @@ steal(
 							,	'/posts/'+post.owner
 							).link(
 								{
-									'comments':
+									'hcomments':
 									{
 										href:'/posts/'+post.owner+'/comments'
 									}
-								,	'actions': genActions('/posts/'+post.owner)
+								,	'hactions': genActions('/posts/'+post.owner)
 								,	'hovercard': 
 									{
 										href:'/posts/'+post.owner+'/hovercard'
@@ -160,7 +160,7 @@ steal(
 								}
 							).embedded(
 								{
-									'comments': genComments('/posts/'+post.owner,index)
+									'hcomments': genComments('/posts/'+post.owner,index)
 								,	'hovercard': genHovercard(post.owner)
 								}
 							)
@@ -174,14 +174,14 @@ steal(
 				,	'/stream'
 				).link(
 					{
-						'posts':
+						'hposts':
 							{
 								href:'/posts'
 							}
 					}
 				).embedded(
 					{
-						'posts': genPost()
+						'hposts': genPost()
 					}
 				).get_document()
 			}

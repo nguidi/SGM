@@ -14,24 +14,47 @@ steal(
 			{
 				var hovercardHTML = can.$('<div id="hovercard"><a class="hovercard">')
 				
+				Sigma.HypermediaContainer(
+					'Sigma.Hypermedia.Hovercard.Container'
+				,	{
+						defaults:
+						{
+							media_types:
+							{
+								'hovercard':
+								{
+									Handler: Sigma.Controls.Hovercard
+								,	options: {
+										target: '.hovercard'
+									,	view: '//stock/views/hovercard/hovercard.mustache'
+									}
+								}
+							}
+						}
+					}
+				,	{}
+				)
+
+				var hovercard_container = new
+					Sigma.Hypermedia.Hovercard.Container(
+						hovercardHTML
+					,	{
+							id:'Hovercard'
+						,	target: 'Hovercard'
+						,	slot: Sigma.Model.HAL.Hovercard.getRoot('/hovercardDemo','hovercard')
+						}
+					)
+
 				stop()
-				Sigma.Model.HAL.Hovercard.getRoot('/hovercardDemo','hovercard')
+				hovercard_container.options.slot
 					.then(
 						function(hovercardData)
 						{	
-							new Sigma.Controls.Hovercard(
-								hovercardHTML
-							,	{
-									view: '//sigma/stock/views/hovercard/hovercard.mustache'
-								,	target: '.hovercard'
-								,	data : hovercardData
-								}
-							)
 							start()
 
 							equal(hovercardData.constructor.fullName,"Sigma.Model.HAL.Hovercard","Resource Generated")
 
-							equal(hovercardHTML.find('.popover').length,0,'HoverCard Disabled')
+							equal(hovercardHTML.find('.popover').length,0,'On Event Mouseout: HoverCard Disabled')
 
 							stop()
 
@@ -42,14 +65,14 @@ steal(
 							setTimeout(
 								function()
 								{
-									equal(hovercardHTML.find('.popover').length,1,'HoverCard Enabled')
+									equal(hovercardHTML.find('.popover').length,1,'On Event Mouseenter: HoverCard Enabled')
 									hovercardHTML
 										.find('.hovercard')
 										.trigger('mouseleave')
 									setTimeout(
 										function()
 										{
-											equal(hovercardHTML.find('.popover').length,0,'HoverCard Disabled')
+											equal(hovercardHTML.find('.popover').length,0,'On Event Mouseout: HoverCard Disabled')
 											start()
 										}
 									,	200

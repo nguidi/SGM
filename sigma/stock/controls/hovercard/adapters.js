@@ -3,17 +3,17 @@ steal(
 ).then(
 	function()
 	{
-		var HovercardAdapter
-		=	Sigma.Model.HAL.Resource(
-				{
-					align:'left'
-				,	action_align: 'right'
-				,	subitems_rel: false
-				,	actions_rel: false
-				,	hovercard_rel : false
-				,	handlers: false
-				}
-			,	{
+		Sigma.Model.HAL.Resource(
+			'HovercardAdapter'
+		,	{
+				align:'left'
+			,	action_align: 'right'
+			,	subitems_rel: false
+			,	actions_rel: false
+			,	hovercard_rel : false
+			,	handlers: false
+			}
+		,	{
 				getSubitems:function()
 					{
 					return	this.constructor.subitems_rel
@@ -58,22 +58,22 @@ steal(
 		)
 
 		HovercardAdapter(
-			'Sigma.Model.HAL.Resource.Stream'
+			'Sigma.Model.HAL.Resource.HStream'
 		,	{
-				subitems_rel:'posts'
+				subitems_rel:'hposts'
 			,	getRoot: function(rel)
 					{
-						return this.Fetch('/posts',rel)
+						return this.Fetch('/hposts',rel)
 					}
 			}
 		,	{}
 		)
 
 		HovercardAdapter(
-			'Sigma.Model.HAL.Posts'
+			'Sigma.Model.HAL.HPosts'
 		,	{
-				subitems_rel:'comments'
-			,	actions_rel: 'actions'
+				subitems_rel:'hcomments'
+			,	actions_rel: 'hactions'
 			,	hovercard_rel: 'hovercard'
 			,	handlers: 
 				{
@@ -87,9 +87,9 @@ steal(
 		)
 
 		HovercardAdapter(
-			'Sigma.Model.HAL.Comments'
+			'Sigma.Model.HAL.HComments'
 		,	{
-				actions_rel: 'actions'
+				actions_rel: 'hactions'
 			,	hovercard_rel: 'hovercard'
 			,	handlers: 
 				{
