@@ -7,24 +7,28 @@ can.Control(
 ,	{
 		init: function()
 		{
+			this.$toggler
+			=	this.element
+					.find('.dropdown-toggle')
 			this.$dropdown 
-			= this.element.parent()
-				.find('ul.dropdown-menu')
+			= 	this.element
+					.find('.dropdown-menu')
 
 		}
 
 	,	getCSS: function()
 		{
-			var 	pos = can.$(this.element).position()
-			,	toggler = can.$(this.element)
+			var 	parent = can.$(this.element).parent().position()
+			,	pos = can.$(this.element).position()
+			,	toggler = this.$toggler
 			,	doc = can.$(document)
 			,	dropdown = this.$dropdown
 			
 			return {
-				top: pos.top + toggler.height()
-			,	left: (pos.left + dropdown.width() < doc.width())
+				top: pos.top + toggler.height() + 15
+			,	left: (parent.left + pos.left + dropdown.width() < doc.width())
 					? pos.left
-					: pos.left + toggler.width() + 8 - dropdown.width()
+					: pos.left + toggler.width() - dropdown.width() + 10
 			,	right: 'auto'
 			,	opacity: 0
 			}
@@ -65,14 +69,23 @@ can.Control(
 					)
 		}
 
-	,	'.options-toggle click': function(el,ev)
+	,	'.dropdown-toggle click': function(el,ev)
 		{
 			var isActive 
 			= 	this.element
 					.hasClass('open')
+			,	self = this
 
-			if(!isActive)
+			if(!isActive) {
 				this.show_dropdown()
+				setTimeout(
+					function()
+					{
+						self.hide_dropdown()
+					}
+				,	5000
+				)
+			}
 			else
 				this.hide_dropdown()
 		}

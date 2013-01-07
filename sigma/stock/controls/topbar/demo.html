@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="description" content="">
 	<meta name="author" content="Sigma-IT">
-	<title>SGM/Home Demo</title>
+	<title>SGM/Topbar Demo</title>
 	<script type='text/javascript' src="../../../../steal/steal.js"></script>
 	<style type="text/css">
 		body {
@@ -40,8 +40,8 @@
 	,	'can/view/mustache'
 	,	'sigma/fixtures'
 	).then(
-		'sigma/stock/controls/home/fixtures.js'
-	,	'sigma/stock/controls/home'
+		'sigma/stock/controls/topbar/fixtures.js'
+	,	'sigma/stock/controls/topbar'
 	,	'sigma/stock/controls/lib/media.css'
 	,	'sigma/lib/style.js'
 	).then(
@@ -55,10 +55,10 @@
 							media_types:
 							{
 								'profile':{
-										Handler:Sigma.Controls.Home
+										Handler:Sigma.Controls.Topbar
 									,	options:{
 											target_content: 'Content'
-										,	view: '//stock/views/home/init.mustache'
+										,	view: '//stock/views/topbar/init.mustache'
 										}
 									}
 							}

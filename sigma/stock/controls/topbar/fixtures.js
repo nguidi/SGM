@@ -3,28 +3,31 @@ steal('sigma/fixtures'
 ).then(
 	function()
 	{
-		can.fixture("GET /api/{username}"
+		can.fixture("GET /api/jperez"
 		,	function(original)
 			{
-			var	profile
-			=	Sigma.fixtures.getProfile(original)
 			return	new Sigma.fixtures
 				.hal_builder(
 					{
-						username:profile.username
-					,	greeting:profile.greeting
-					,	title: 'Home'
+						brand: 'Topbar'
 					}
-				,	'/api/'+profile.username
+				,	'/api/jperez'
 				).link(
 					{
-						applications:
-							Sigma.fixtures.genApplications(profile)
-					,	dropdown: 
+						nav1: {href: '/api/jperez/profile', title: 'Profile', name: 'profile'}
+					,	nav2: {href: '/api/jperez/config', title: 'Configuracion', name: 'config'}
+					,	nav3: {href: '/api/jperez/logout', title: 'Salir', name: 'logout'}
+					,	dropdown1: 
 						[
-							{href: '/api/'+profile.username+'/profile', title: 'Profile', name: 'profile'}
-						,	{href: '/api/'+profile.username+'/config', title: 'Configuracion', name: 'config'}
-						,	{href: '/api/'+profile.username+'/logout', title: 'Salir', name: 'logout'}
+							{href: '/api/jperez/profile', title: 'Profile', name: 'profile'}
+						,	{href: '/api/jperez/config', title: 'Configuracion', name: 'config'}
+						,	{href: '/api/jperez/logout', title: 'Salir', name: 'logout'}
+						]
+					,	dropdown2: 
+						[
+							{href: '/api/jperez/profile', title: 'Profile', name: 'profile'}
+						,	{href: '/api/jperez/config', title: 'Configuracion', name: 'config'}
+						,	{href: '/api/jperez/logout', title: 'Salir', name: 'logout'}
 						]
 					}
 				).get_document()
