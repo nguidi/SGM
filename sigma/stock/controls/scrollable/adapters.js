@@ -15,14 +15,6 @@ steal(
 				{
 					return this.links.attr('more')
 				}
-			,	getPrev: function()
-				{
-					return this.links.attr('prev')
-				}
-			,	getNext: function()
-				{
-					return this.links.attr('next')
-				}
 			}
 		)
 

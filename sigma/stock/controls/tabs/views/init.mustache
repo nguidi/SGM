@@ -1,0 +1,53 @@
+
+<div class="form-wrapper">
+	<h4 class="">{{title}}</h4>
+	<div class="actions input-append pull-right">
+		{{#tabs}}
+			{{#if actions}}
+			<span class="actions offset1">
+			{{#actions}}
+				<button class="btn btn-small" name="{{name}}"type="button" title="{{tooltip}}">
+					<i class="icon-{{icon}}"></i>&nbsp;&nbsp;{{caption}}
+				</button>
+			{{/actions}}
+			</span>
+			{{else}}
+				nooooo actions
+			{{/if}}
+		{{/tabs}}
+	</div>
+	<ul class="nav nav-tabs" id="tab-{{id}}">
+		{{# tabs}}
+			<li><a href="#{{name}}">{{title}}</a></li>
+		{{/tabs}}
+	</ul>
+	<div class="tab-content">
+		{{#tabs}}
+			<div class="tab-pane" id="{{name}}">
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+				{{#if fields_tab}}
+					<div class="form-wrapper-main">
+						<form class="well-small">
+							<fieldset>
+					    		<legend>Formulario de {{title}}</legend>
+							{{#fields}}
+							<div class="well-small">
+								<span class="span2"><small>{{label}}</small></span>
+								<input type="text" name="{{name}}" id="{{name}}" placeholder="{{placeholder}}">
+							</div>
+							{{/fields}}
+							<div class="form-actions well-small">
+						  		<button class="btn btn-small" type="reset">Limpiar</button>
+						  		<button class="btn btn-small btn-primary pull-right" type="button">Buscar</button>
+						  	</div>
+						  	</fieldset>
+						</form>
+					</div>
+				{{/if}}
+			</div>
+		{{/tabs}}
+	</div>
+</div>
+
+
+

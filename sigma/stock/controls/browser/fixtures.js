@@ -138,7 +138,7 @@ steal(
 							{
 								menu: 
 								[	
-									{href:'/browser/jperez/stream', title: 'Stream', name: 'stream'}
+									{href:'http://trabajando:3003/api/data/institutions/', title: 'Stream', name: 'collection'}
 								,	{href:'/browser/jperez/config', title: 'Config', name: 'config'}
 								]
 							}

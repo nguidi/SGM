@@ -1,0 +1,18 @@
+<div class="form-wrapper">
+	<form class="well-small">
+		<fieldset>
+    		<legend>Formulario de {{title}}</legend>
+		{{#fields}}
+		<div class="well-small">
+			<span class="span2"><small>{{label}}</small></span>
+			<input type="text" name="{{name}}" id="{{name}}" placeholder="{{placeholder}}">
+		</div>
+		{{/fields}}
+		<div class="form-actions well-small">
+			{{#actions}}
+			<button class="btn btn-small {{extra_class}}" type="button">{{caption}}</button>
+			{{/actions}}
+	  	</div>
+	  	</fieldset>
+	</form>
+</div>

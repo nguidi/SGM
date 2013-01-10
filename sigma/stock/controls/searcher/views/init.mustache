@@ -1,0 +1,42 @@
+
+<div class="input-append">
+	<input class="input-xlarge" id="appendedInputButton" type="text">
+	
+	{{#if advance}}
+	<button class="btn options-toggle" type="button" title="Busqueda Avanzada">
+		<span class="caret"></span>
+	</button>
+	{{/advance}}
+	<button id="search" class="btn btn-primary" type="button" title="Buscar">&nbsp;&nbsp;<i class="icon-search"></i>&nbsp;&nbsp;</button>
+	{{#if actions}}
+		<span class="actions offset1">
+		{{#actions}}
+			<button class="btn btn-small" name="{{name}}"type="button" title="{{tooltip}}">
+				<i class="icon-{{icon}}"></i>&nbsp;&nbsp;{{caption}}
+			</button>
+		{{/actions}}
+		</span>
+	{{/if}}
+</div>
+{{#if advance}}
+<ul class="advance dropdown-menu">
+	<form class="well-small">
+		<fieldset>
+    		<legend>Busqueda avanzada de {{title}}</legend>
+		{{#advance}}
+		<div class="well-small">
+			<span class="span2"><small>{{label}}</small></span>
+			<input type="text" name="{{name}}" id="{{name}}" placeholder="{{placeholder}}">
+		</div>
+		{{/advance}}
+		<div class="form-actions well-small">
+	  		<button class="btn btn-small" type="reset">Limpiar</button>
+	  		<button class="btn btn-small btn-primary pull-right" type="button">Buscar</button>
+	  	</div>
+	  	</fieldset>
+	</form>
+</ul>
+{{/if}}
+
+
+
