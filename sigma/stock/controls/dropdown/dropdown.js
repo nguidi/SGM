@@ -2,6 +2,7 @@ can.Control(
 	'Sigma.Controls.Dropdown'
 ,	{
 		defaults:{
+			autohide: true
 		}
 	}
 ,	{
@@ -13,7 +14,29 @@ can.Control(
 			this.$dropdown 
 			= 	this.element
 					.find('.dropdown-menu')
+			if (this.$toggler.hasClass('primal'))
+				this.primalToggler(
+					this.$dropdown
+						.find('a:first')
+						.text()
+				)
 
+		}
+
+	,	primalToggler: function(text)
+		{
+			this.$toggler
+				.html(
+					can.view.frag(
+						new can.Mustache(
+							{ 
+								text: '{{.}} <span class="caret"></span>'
+							}
+						).render(
+							text
+						)
+					)
+				)
 		}
 
 	,	getCSS: function()
@@ -23,12 +46,11 @@ can.Control(
 			,	toggler = this.$toggler
 			,	doc = can.$(document)
 			,	dropdown = this.$dropdown
-			
 			return {
 				top: pos.top + toggler.height() + 15
-			,	left: (parent.left + pos.left + dropdown.width() < doc.width())
+			,	left: (parent.left + pos.left + toggler.width() + dropdown.width() < doc.width())
 					? pos.left
-					: pos.left + toggler.width() - dropdown.width() + 10
+					: pos.left + toggler.width() - dropdown.width() + 30
 			,	right: 'auto'
 			,	opacity: 0
 			}
@@ -39,16 +61,16 @@ can.Control(
 			var self = this
 			this.$dropdown
 				.animate(
-						{
-							opacity: 0
-						}
-					,	300
-					,	function()
-						{
-							self.element
-								.removeClass('open')
-						}
-					)
+					{
+						opacity: 0
+					}
+				,	300
+				,	function()
+					{
+						self.element
+							.removeClass('open')
+					}
+				)
 		}
 
 	,	show_dropdown: function()
@@ -78,21 +100,45 @@ can.Control(
 
 			if(!isActive) {
 				this.show_dropdown()
-				setTimeout(
-					function()
-					{
-						self.hide_dropdown()
-					}
-				,	5000
-				)
+				if (this.options.autohide)
+					this.timeout = setTimeout(
+						function()
+						{
+							self.hide_dropdown()
+						}
+					,	5000
+					)
 			}
 			else
 				this.hide_dropdown()
 		}
 
-	,	'.dropdown-menu mouseleave': function()
+	,	'.dropdown-menu li a click': function(el)
 		{
 			this.hide_dropdown()
+			if (this.$toggler.hasClass('primal'))
+				this.primalToggler(el.text())
+		}
+
+	,	'.dropdown-menu mouseenter': function()
+		{
+			if (this.options.autohide)
+				clearTimeout(this.timeout)
+				
+		}
+
+	,	'.dropdown-menu mouseleave': function()
+		{
+			if (this.options.autohide)
+				clearTimeout(this.timeout)
+			var self = this
+			this.timeout = setTimeout(
+				function()
+				{
+					self.hide_dropdown()
+				}
+			,	3000
+			)
 				
 		}
 	}

@@ -16,11 +16,39 @@ steal(
 		,	{
 			 	_render_content: function(data)
 				{
+					var nav = new Array()
+					
+					data.links.each(
+						function(link,attr)
+						{
+							if (this.rel && this.length > 0)
+								nav.push(
+									new can.Observe(
+										can.extend(
+											data.embedded[this.rel] ?
+												data.embedded[this.rel]
+											: 	{}
+										,	{
+												title: attr
+											,	dropdown: true
+											,	nav: this
+											}
+										)
+									)
+								)
+							else 
+								if (this.rel && this.rel != 'self')
+									nav.push(this)
+						}
+					)
+
 					this.element
 						.html(
 							can.view(
 								this.options.view
-							,	data.links
+							,	{
+									nav: nav
+								}
 							)
 						)
 					if (this.options.auto_render)

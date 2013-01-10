@@ -19,7 +19,7 @@ steal(
 				{
 					
 					var nav = new Array()
-
+					
 					data.links.each(
 						function(link,attr)
 						{
@@ -68,19 +68,23 @@ steal(
 
 				}
 
-			,	'.browseable click': function(el, ev)
+			,	'li a.browseable click': function(el, ev)
 				{
-					this.element.trigger(
-						'browse'
-					,	{
-							links: this.options.slot.links
-						,	rel: el.data('link').rel
-						,	name: el.data('link').name
-						,	target: (this.options.target_content)
-								? this.options.target_content
-								: this.options.target
-						}
-					)
+					if (!el.parent('li').hasClass('active'))
+					{
+						el.parent('li').addClass('active')
+						this.element.trigger(
+							'browse'
+						,	{
+								links: this.options.slot.links
+							,	rel: el.data('link').rel
+							,	name: el.data('link').name
+							,	target: (this.options.target_content)
+									? this.options.target_content
+									: this.options.target
+							}
+						)
+					}
 				}
 
 			}

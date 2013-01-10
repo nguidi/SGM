@@ -184,7 +184,6 @@ steal(	'sigma/lib'
 								return	raw
 								}
 							)
-
 						)
 					}
 			,	slot:
@@ -207,15 +206,17 @@ steal(	'sigma/lib'
 			,	' browse':
 					function(el,ev,data)
 					{
+						ev.stopPropagation()
 						this.constructor
-						.findContainer(this.getRelationTarget(data.target))
-						.browse(
-							Sigma.Model.HAL.lookup(
-								data.links
-							,	data.rel
-							,	data.name
+							.findContainer(this.getRelationTarget(data.target))
+							.browse(
+								Sigma.Model.HAL.lookup(
+									data.links
+								,	data.rel
+								,	data.name
+								)
 							)
-						)
+						this.element.trigger('router',data)
 					}
 
 			}

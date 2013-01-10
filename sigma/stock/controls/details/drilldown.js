@@ -4,122 +4,130 @@ steal(
 	function()
 	{
 		Sigma.HypermediaControl(
-			'Sigma.Hypermedia.DrillDown'
+			'Sigma.Controls.DrillDown'
 		,	{
 				defaults: {
-					view_drilldown: false
-				,	view_breadcrumb: false
 				}
 			}
 		,	{
 				_render_content: function(data)
 				{
-					var exists = 	this.element.find('ul').hasClass('breadcrumb') 
-					||		this.element.find('ul').hasClass('drilldown')
-
-					if (!exists)
-					{
-						can.addClass(
-							this.element
-						,	'well media span5'
-						)	
-
-						can.$('<ul class="breadcrumb">')
-							.appendTo(this.element)
-
-						can.$('<li><i class="icon-home">')
-							.appendTo(this.element.find('ul.breadcrumb'))
-
-						can.$('<div class="span3 bs-docs-sidebar drilldown">')
-							.appendTo(this.element)
-					}
-					this._render_resource(data)
-				}
-
-			,	_render_resource: function(data) 
-				{
-					this._render_breadcrumb(data)
-
-					this._reder_drilldown(data)
-				}
-
-			,	_render_breadcrumb: function(data)
-				{
-					var control = false
-
-					this.element
-						.find('ul.breadcrumb')
-						.find('li')
-						.each(
-							function()
-							{
-								if (control)
-									can.$(this).remove()
-								else 
-									if (can.$(this).attr('id') == 'breadcrumb-'+data.attr('id'))
-										control = true
-							}
-						)
-					if (!control)
-					{
-						this.element
-							.find('ul.breadcrumb')
-							.find('li')
-							.addClass('active')
-
-						if (this.options.view_breadcrumb)
-							can.append(
-								this.element
-									.find('ul.breadcrumb')
-							,	can.view(
-									this.options.view_breadcrumb
-								,	data
-								)
-							)	
-					}
-				}
-
-			,	_reder_drilldown: function(data) 
-				{
-					this.element
-						.find('div.drilldown')
-						.find('ul')
-						.remove()
-
-					if (this.options.view_drilldown)
-						can.append(
-							this.element
-								.find('div.drilldown')
-						,	can.view(
-								this.options.view_drilldown
-							,	data
-							)
-						)
-				}
-
-			,	'.drilldown ul li click': function(element,event)
-				{
+					var 	links
+					=	new Array()
+					,	home
 					
-					var self = this
-					Sigma.Model.HAL.Resource.DrillDown.getRoot(element.attr('href'))
-					.then(
-						function(slot)
+					data.links.each(
+						function(link,attr)
 						{
-							self.options.slot = slot
-							self._update(
-								element
-							,	self.options
-							)
+							if (this.rel && this.rel == 'home')
+								home = this
+							else 
+								if (this.rel && this.rel != 'self')
+									links.push(this)
 						}
 					)
+
+					this.element
+						.html(
+							can.view(
+								this.options.view
+							,	{
+									links: links
+								,	home: home
+								}
+							)
+						)
+
+					if (links.length == 0)
+						this.element
+							.find('.breadcrumb')
+							.hide()
+
+					this.activate(
+						this.element
+							.find('ul li a:last')
+					)
 				}
 
-			,	'.breadcrumb li.active click': function(element,event)
+			,	deactivate: function(element)
 				{
-					this.options.slot = element.data('breadcrumb')
-					this._render_resource(
-						element.data('breadcrumb')
+					var 	text 
+					= 	can.trim(
+							element
+								.text()
+								.split('/')
+								.reverse()[0]
+						)
+					if (element.hasClass('home'))
+						element.html(
+							can.$('<a href="#">')
+								.addClass('browseable')
+								.html(element.html())
+						)
+					else
+					{
+						element.html(
+							can.$('<span>')
+									.addClass('divider')
+									.text("/")	
+						)
+
+						can.append(
+							element
+						,	can.$('<a href="#">')
+								.addClass('browseable')
+								.text(text)
+						)
+					}
+
+					element
+						.removeClass('active')
+				}
+
+			,	activate: function(element)
+				{
+					this.deactivate(
+						element
+							.parent('li')
+							.parent('ul')
+							.find('li.active')
 					)
+
+					if (element.parent('li').hasClass('home'))
+						element
+							.parent('li')
+							.addClass('active')
+							.append(
+								can.$('<i class="icon-home">')
+							)
+					else
+						element
+							.parent('li')
+							.addClass('active')
+							.append(
+								element
+									.text()
+							)
+
+					element
+						.remove()
+				}
+
+			,	'.browseable click': function(element,event)
+				{
+					if (!element.parent('li').hasClass('active'))
+					{
+						this.activate(element)
+						this.element.trigger(
+							'browse'
+						,	{
+								links: this.options.slot.links
+							,	rel: element.data('link').rel
+							,	name: element.data('link').name
+							,	target: self.options.target
+							}
+						)
+					}
 				}
 			}
 		)
