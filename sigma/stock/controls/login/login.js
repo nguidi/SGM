@@ -84,7 +84,7 @@ steal(
 						.constructor
 						.containers['Gerente']
 						.slot(
-							Sigma.Model.HAL.Resource.getRoot('/api/gerente','login')
+							Sigma.Model.HAL.Resource.getRoot('http://trabajando:3003/api/data/grid/4','login')
 						)
 				}
 

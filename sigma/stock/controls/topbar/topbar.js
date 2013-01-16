@@ -17,9 +17,8 @@ steal(
 		,	{
 				_render_content : function(data)
 				{
-					
 					var nav = new Array()
-					
+
 					data.links.each(
 						function(link,attr)
 						{
@@ -48,11 +47,13 @@ steal(
 						.html(
 							can.view(
 								this.options.view
-							,	{
-									brand: data.brand
-								,	nav: nav
-								,	self: data.links.self
-								}
+							,	new can.Observe(
+									{
+										brand: data.brand
+									,	nav: nav
+									,	self: data.links.self
+									}
+								)
 							)
 						)
 
@@ -68,11 +69,19 @@ steal(
 
 				}
 
+			,	toggleActive: function(li)
+				{
+					this.element
+							.find('li.active')
+							.removeClass('active')
+					li.addClass('active')
+				}
+
 			,	'li a.browseable click': function(el, ev)
 				{
 					if (!el.parent('li').hasClass('active'))
 					{
-						el.parent('li').addClass('active')
+						this.toggleActive(el.parent('li'))
 						this.element.trigger(
 							'browse'
 						,	{

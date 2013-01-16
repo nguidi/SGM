@@ -123,8 +123,8 @@ steal(	'sigma/model'
 				setup:
 					function(data,resource)
 					{
-						this._super()
-					var	self=this
+					this._super()
+						var	self=this
 						this.resource=resource
 						can.each(
 							data
@@ -181,53 +181,65 @@ steal(	'sigma/model'
 		,	{
 				model:	function(data)
 					{
-						this._reqs++
-						data.id
-							=(	data.id
-							||	data._links.self.href
-							).split('/')
-							.pop()
-					var	temp_data={}
-						can.each(
+					this._reqs++
+					data.id
+						=(	data.id
+						||	data._links.self.href
+						).split('/')
+						.pop()
+
+					if (this.store[data.id])
+						delete this.store[data.id]	
+
+					var	the_model = this._super(data)
+
+					can.each(
 							['links','embedded']
 						,	function(prop)
 							{
-								temp_data['_'+prop] = data['_'+prop]
-								delete data['_'+prop]
+								the_model['_'+prop] = data['_'+prop]
+								delete the_model['_'+prop]
 							}
 						)
-					var	the_model=	this._super(data)
-						the_model.links
-						=new	Sigma.Model.HAL
-							.Links(temp_data._links,the_model)
-						the_model.embedded
-						=	(can.isArray(temp_data._embedded))
-								?(
-									Sigma.Model.HAL.model_by_rel(relation)
+					the_model.links = new Sigma.Model.HAL.Links(data._links, the_model)
+
+					the_model.embedded = new can.Observe({})
+
+					can.each(
+						data._embedded
+					,	function(propv,relation)
+						{
+							the_model.embedded.attr(
+								relation
+							,	(	Sigma.Model.HAL.model_by_rel(relation)
 								||	Sigma.Model.HAL.Resource
-								).models(temp_data._embedded)
-								:(
-									function(obs)
-									{
-										can.each(
-											temp_data._embedded
-										,	function(propv,relation)
-											{
-												obs.attr(
-													relation
-												,	(	Sigma.Model.HAL.model_by_rel(relation)
-													||	Sigma.Model.HAL.Resource
-													)[
-														can.isArray(propv)
-														?'models'
-														:'model'
-													](propv)
+								)[
+									can.isArray(propv)
+									?'models'
+									:'model'
+								](propv)
+							)
+							can.each(
+								the_model.embedded.attr()
+							,	function(embedded)
+								{
+									can.each(
+										embedded
+									,	function(data,rel)
+										{
+											if (rel != "_links" && rel != "_embedded")
+												the_model
+												.attr(
+													rel
+												,	data
 												)
-											}
-										)
-									return	obs
-									}
-								)(new can.Observe({}))
+										}
+									)
+								}
+							)
+						}
+					)
+
 					return	the_model
 					}
 			,	Fetch: function(url, rel)

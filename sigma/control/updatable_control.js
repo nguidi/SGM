@@ -83,7 +83,6 @@ steal(	'sigma/lib'
 			,	set_data:
 					function(data)
 					{
-						mio = this.options.data
 						this.options.data=
 							(data instanceof can.Observe) //funciona tanto para observe.list como para observe.
 								? data
