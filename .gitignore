@@ -10,3 +10,6 @@ package.json
 *.orig
 .idea
 tmp*
+sigma/stock/fixtures/data/csv
+sigma/stock/fixtures/data/hal
+sigma/stock/fixtures/data/json
